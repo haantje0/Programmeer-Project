@@ -9,7 +9,11 @@ Solution
 --------
 This app will provide an easy way to administrate and share your own collection in an android app.
 
-
+In the sketches in the PDF 'sketch app' you can find different screens for the app. 
+- The first page you see the screen which shows you all your collections.
+- If you press the menu icon on the upper left, you open the second page. This shows a menu with options.
+- By pressing on a collection you get to the third page. this page shows your collection in a certain order.
+- If you press an item in your collection you get the forth screen, which shows the specific details for that item and a photo.
 
 This app will at least include:
 -	Creating you own custom collection with self-chosen specifications and photos.
