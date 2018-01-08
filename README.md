@@ -9,9 +9,12 @@ Solution
 --------
 This app will provide an easy way to administrate and share your own collection in an android app.
 
+
+
 This app will at least include:
 -	Creating you own custom collection with self-chosen specifications and photos.
 -	Sharing your collections with your Facebook friends.
+
 If possible, this app will include:
 -	Adding non-Facebook friends to see other collections.
 -	Searching for items through the collections of your friends.
