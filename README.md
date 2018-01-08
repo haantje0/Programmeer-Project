@@ -1,5 +1,19 @@
 # Programmeer Project
-Dit document bevat de algemene informatie voor deze app en de 
+this document contains general information about this app and the problem it solves.
 
-test
----
+Problem
+-------
+
+
+Solution
+--------
+
+
+Prerequisites
+-------------
+Data sources:
+- FaceBook API
+- Firebase API
+
+External components:
+- Phone Camera
