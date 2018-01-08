@@ -1,5 +1,5 @@
-# Programmeer-Project
-Programmeer Project van de minor programmeren, UvA.
+# Programmeer Project
+Dit document bevat de algemene informatie voor deze app en de 
 
 test
-----
+---
