@@ -9,7 +9,7 @@ Solution
 --------
 This app will provide an easy way to administrate and share your own collection in an android app.
 
-![alt text](https://github.com/haantje0/Programmeer-Project/edit/master/README.md)
+![alt text](https://github.com/haantje0/Programmeer-Project/blob/master/app%20sketch.png)
 
 
 In the sketches in the PDF 'sketch app' you can find different screens for the app. 
