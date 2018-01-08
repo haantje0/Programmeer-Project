@@ -12,7 +12,7 @@ This app will provide an easy way to administrate and share your own collection 
 ![alt text](https://github.com/haantje0/Programmeer-Project/blob/master/app%20sketch.png)
 
 
-In the sketches in the PDF 'sketch app' you can find different screens for the app. 
+In the sketches you can see different screens for the app. 
 - The first page you see the screen which shows you all your collections.
 - If you press the menu icon on the upper left, you open the second page. This shows a menu with options.
 - By pressing on a collection you get to the third page. this page shows your collection in a certain order.
