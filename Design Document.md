@@ -6,7 +6,7 @@ Advanced sketches
 1.	Login screen (facebook logo)
 2.	Collections overview (list of collections, add button)
 3.	Side menu (own collection button, friends button)
-4.	Add collections (give title, set extra specs)
+4.	Add collections (give title, set extra specs, share?)
 5.	Extra specs popup (title, input)
 6.	Items overview (list of items(title and picture), add button, search function)
 7.	Item specs (image, title, extra specs, change option)
