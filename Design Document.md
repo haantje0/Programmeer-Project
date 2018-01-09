@@ -12,6 +12,8 @@ Advanced sketches
 7.	Item specs (image, title, extra specs, change option)
 8.	Add item (input for all specs)
 
+https://github.com/haantje0/Programmeer-Project/blob/master/sketch%20design%20document.png
+
 Modules, Classes and Functions 
 ------------------------------
 Class: User
