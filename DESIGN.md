@@ -58,6 +58,8 @@ Data sources
 Database
 --------
 
+The database (Firebase) will concist of differtent users, which are saved as their FacebookID. In there you can find the users real name and their collections. These collections branch into the different items and a branch to state the extra specs for this collection. Each item has the standard specs and the extra specs saved in that particular collection.
+
 database example:
 - FacebookID (string)
     - Name (string)
@@ -97,6 +99,3 @@ database example:
                 - ExtraSpec3 (type)
 - FacebookID (string)
     - ....
-
-The database (Firebase) will concist of differtent users, which are saved as their FacebookID. In there you can find the users real name and their collections. These collections branch into the different items and a branch to state the extra specs for this collection. Each item has the standard specs and the extra specs saved in that particular collection.
-            
