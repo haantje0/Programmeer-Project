@@ -3,7 +3,7 @@ This document gives a description of what the app will look like and how the pro
 
 Advanced sketches
 -----------------
-![alt text](https://github.com/haantje0/Programmeer-Project/blob/master/sketch%20design%20document%201.1.png)
+![alt text](https://github.com/haantje0/Programmeer-Project/blob/master/sketch%20design%20document%201.2.png)
 
 1.	Login screen. Here you can login on facebook. You have to log in, in order to access the app.
 2.	Collections overview. Here you can see your collections. You can go to the menu (3), add a new collection (5) or see a collection (6). These collections are loaded from firebase.
@@ -18,36 +18,83 @@ Modules, Classes and Functions
 ------------------------------
 Class: User
 -	String name
--	String FacebookID
--	Constructor
+-	String facebookID
+-	Constructor(name, facebookID)
 -	getName()
 -	getFacebookID()
 
-Class: Item
--	Int itemID
--	Bitmap image
--	String title
--	Date date
--	Int amount
--	String description
--	… (own added specifications)
--	Constructor
--	getImage()
--	getTitle()
--	getDate()
--	getDescription()
--	get…()
+Modules:
+LoginActivity
+CollectionsActivity
+ItemListActivity
+FriendListActivity
+ItemViewActivity
+AddCollectionActivity
+AddItemActivity
+FireBaseManager
+DataBaseManager
+FacebookManager
+CameraManager
+CollectionAdapter
+FriendListAdapter
+ItemListAdapter
+ItemViewAdapter
+
 
 APIs and plugins
--------------------
-Facebook API
-Firebase API
-Phone Camera plugin
+----------------
+- Facebook API. From this API we will get userIDs to verify which user is logged in and which collections can be changed (only the users own collection). This ID is saved in he firebase database.
+- Firebase API. With this API we make an online database which saves users collections. Users are seperated by their names and FacebookIDs. 
+- Phone Camera plugin. With this plugin we allow the user to add photos to their items.
 
 Data sources
-----------------
-
+------------
+- Facebook API (https://developers.facebook.com/docs/android/getting-started)
+- Firebase API (https://console.firebase.google.com/)
+- Camera API (https://developer.android.com/guide/topics/media/camera.html)
 
 Database
----------
+--------
 
+database example:
+- FacebookID (string)
+    - Name (string)
+    - Collections
+        - Collection
+            - ExtraSpecs
+                - ExtraSpec1 (string)
+                - SpecType1 (type)
+                - ExtraSpec2 (string)
+                - SpecType2 (type)
+            - ItemID (int)
+                - Title (string)
+                - Image (bitmap)
+                - Date (date)
+                - Description (string)
+                - Amount (int)
+                - ExtraSpec1 (type)
+                - ExtraSpec2 (type)
+            - ItemID (int)
+                - Title (string)
+                - Image (bitmap)
+                - Date (date)
+                - Description (string)
+                - Amount (int)
+                - ExtraSpec1 (type)
+                - ExtraSpec2 (type)
+        - Collection
+            - ExtraSpecs
+                - ExtraSpec3 (string)
+                - SpecType3 (type)
+            - ItemID
+                - Title (string)
+                - Image (bitmap)
+                - Date (date)
+                - Description (string)
+                - Amount (int)
+                - ExtraSpec3 (type)
+- FacebookID (string)
+    - ....
+
+The database (Firebase) will concist of differtent users, which are saved as their FacebookID. In there you can find the users real name and their collections. These collections branch into the different items and a branch to state the extra specs for this collection. Each item has the standard specs and the extra specs saved in that particular collection.
+            
