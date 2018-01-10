@@ -49,8 +49,11 @@ APIs and plugins
 Data sources
 ------------
 - Facebook API (https://developers.facebook.com/docs/android/getting-started)
+    - It will only be used to logg in and to save FacebookIDs.
 - Firebase API (https://console.firebase.google.com/)
+    - It is used to save the data in a database.
 - Camera API (https://developer.android.com/guide/topics/media/camera.html)
+    - It starts the camera and it will return a bitmap image.
 
 Database
 --------
