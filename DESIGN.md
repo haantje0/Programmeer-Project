@@ -24,21 +24,21 @@ Class: User
 -	getFacebookID()
 
 Modules:
-LoginActivity
-CollectionsActivity
-ItemListActivity
-FriendListActivity
-ItemViewActivity
-AddCollectionActivity
-AddItemActivity
-FireBaseManager
-DataBaseManager
-FacebookManager
-CameraManager
-CollectionAdapter
-FriendListAdapter
-ItemListAdapter
-ItemViewAdapter
+- LoginActivity
+- CollectionsActivity
+- ItemListActivity
+- FriendListActivity
+- ItemViewActivity
+- AddCollectionActivity
+- AddItemActivity
+- FireBaseManager
+- DataBaseManager
+- FacebookManager
+- CameraManager
+- CollectionAdapter
+- FriendListAdapter
+- ItemListAdapter
+- ItemViewAdapter
 
 
 APIs and plugins
