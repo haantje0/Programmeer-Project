@@ -34,7 +34,6 @@ Data sources:
 
 External components:
 - Phone Camera API
-- SQLite
 
 Similar Android apps:
 - Collections Manager. It lets you create your own collection. You are unable to share your collection and chose your own specifications.
