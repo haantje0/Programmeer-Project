@@ -1,6 +1,7 @@
 # Programmeer Project
 this document contains general information about this app and the problem it solves.
-[![BCH compliance](https://bettercodehub.com/edge/badge/haantje0/lexdehaan-pset5?branch=master)](https://bettercodehub.com/)
+
+[![BCH compliance](https://bettercodehub.com/edge/badge/haantje0/Programmeer-Project?branch=master)](https://bettercodehub.com/)
 
 Problem
 -------
