@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Collectors app</string>
+    <string name="title_activity_collections">CollectionsActivity</string>
+    <string name="title_activity_add_collection">AddCollectionActivity</string>
+    <string name="title_activity_collection_view">CollectionViewActivity</string>
+    <string name="title_activity_item_view">ItemViewActivity</string>
+    <string name="title_activity_add_item">AddItemActivity</string>
+    <string name="facebook_app_id">143776942971861</string>
+    <string name="fb_login_protocol_scheme">fb143776942971861</string>
+
+</resources>

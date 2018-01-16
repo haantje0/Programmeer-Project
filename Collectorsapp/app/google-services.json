@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1011920345463",
+    "firebase_url": "https://collectors-app.firebaseio.com",
+    "project_id": "collectors-app",
+    "storage_bucket": "collectors-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011920345463:android:0b2657600588fd24",
+        "android_client_info": {
+          "package_name": "com.example.lex.collectorsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011920345463-v9pgcmhtrukuc0ef985c6a8250jqj06l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lex.collectorsapp",
+            "certificate_hash": "f9eeab8d23c6fbb024ebfd8f5d08734772dda29f"
+          }
+        },
+        {
+          "client_id": "1011920345463-bmpt4vidcv848u1u6coekra5hbvb4nis.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB_56Fd1NsWH0druPc-OlBkpRQfDxBUxk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011920345463-bmpt4vidcv848u1u6coekra5hbvb4nis.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

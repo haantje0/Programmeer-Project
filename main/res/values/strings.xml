@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">Collectors app</string>
-    <string name="title_activity_collections">CollectionsActivity</string>
-    <string name="title_activity_add_collection">AddCollectionActivity</string>
-    <string name="title_activity_collection_view">CollectionViewActivity</string>
-    <string name="title_activity_item_view">ItemViewActivity</string>
-    <string name="title_activity_add_item">AddItemActivity</string>
-</resources>
