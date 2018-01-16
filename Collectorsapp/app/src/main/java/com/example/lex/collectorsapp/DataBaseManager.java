@@ -65,6 +65,10 @@ class DatabaseManager {
         mDatabase.addValueEventListener(postListener);
     }
 
+    public void addUser(Context context, String userID) {
+        mDatabase.child(userID).push();
+    }
+
     // add values to the database
     public void addToDB(Context context, Specs specs) {
         mDatabase.child("Lex").child(specs.getName()).setValue(specs);

@@ -16,12 +16,17 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphRequestAsyncTask;
+import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.firebase.database.DatabaseReference;
+
+import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -32,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     CallbackManager callbackManager = CallbackManager.Factory.create();
     boolean loggedIn = AccessToken.getCurrentAccessToken() == null;
 
-    private DatabaseReference mDatabase;
+    DatabaseManager dbManager = new DatabaseManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +51,20 @@ public class LoginActivity extends AppCompatActivity {
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        String id = Profile.getCurrentProfile().getId();
+                        final AccessToken accessToken = loginResult.getAccessToken();
+                        dbManager.setDatabase();
 
-                        mDatabase.setValue(id);
+                        GraphRequestAsyncTask request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject user, GraphResponse graphResponse) {
+                                String id = user.optString("id");
 
-                        Intent intent = new Intent(LoginActivity.this, CollectionsActivity.class);
-                        LoginActivity.this.startActivity(intent);
+                                dbManager.addUser(LoginActivity.this, id);
+
+                                Intent intent = new Intent(LoginActivity.this, CollectionsActivity.class);
+                                LoginActivity.this.startActivity(intent);
+                            }
+                        }).executeAsync();
                     }
 
                     @Override
