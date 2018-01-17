@@ -43,12 +43,17 @@ public class AddItemActivity extends AppCompatActivity {
     // set specs
     Specs specs = new Specs();
 
+    String collection;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        collection = intent.getStringExtra("Collection");
 
         mImageView = (ImageView) findViewById(R.id.imageViewAddPhoto);
 
@@ -134,7 +139,7 @@ public class AddItemActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         }
         else {
-            dbManager.addToDB(AddItemActivity.this, specs);
+            dbManager.addItemToDB(AddItemActivity.this, specs, collection);
         }
     }
 }

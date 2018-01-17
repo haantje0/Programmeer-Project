@@ -44,7 +44,7 @@
             android:inputType="textPersonName"
             android:text="Title"
             android:ems="10"
-            android:id="@+id/editText"
+            android:id="@+id/editTextTitle"
             android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
 
         <TextView
@@ -86,7 +86,8 @@
             android:text="Save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button2" />
+            android:id="@+id/CollectionSaveButton"
+            android:onClick="SaveCollection" />
 
     </LinearLayout>
 

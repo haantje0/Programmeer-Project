@@ -7,6 +7,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.view.menu.MenuView;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,11 +24,14 @@ import java.util.Comparator;
 
 class DatabaseManager {
 
+    private FirebaseAuth mAuth;
+
     private DatabaseReference mDatabase;
 
     // set database instance
     public void setDatabase() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
     }
 
     // get information form the database
@@ -65,15 +69,23 @@ class DatabaseManager {
         mDatabase.addValueEventListener(postListener);
     }
 
-    public void addUser(Context context, String userID) {
-        mDatabase.child(userID).push();
+    public void addUser(String userID) {
+        mDatabase.setValue(userID);
+    }
+
+    public void addCollectionToDB(Context context, String title) {
+        mDatabase.child(mAuth.getUid()).child(title).setValue(title);
+
+        // go back to TODO
+        Intent intent = new Intent(context, CollectionsActivity.class);
+        context.startActivity(intent);
     }
 
     // add values to the database
-    public void addToDB(Context context, Specs specs) {
-        mDatabase.child("Lex").child(specs.getName()).setValue(specs);
+    public void addItemToDB(Context context, Specs specs, String collection) {
+        mDatabase.child(mAuth.getUid()).child(collection).child(specs.getName()).setValue(specs);
 
-        // go back to the eatlist
+        // go back to TODO
         Intent intent = new Intent(context, ItemViewActivity.class);
         context.startActivity(intent);
     }

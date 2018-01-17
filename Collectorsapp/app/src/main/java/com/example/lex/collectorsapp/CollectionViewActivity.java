@@ -20,6 +20,8 @@ public class CollectionViewActivity extends AppCompatActivity {
 
     List<Specs> items = new ArrayList<Specs>();
 
+    String collection;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,7 @@ public class CollectionViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
-        String collection = intent.getStringExtra("Collection");
+        collection = intent.getStringExtra("Collection");
 
         TextView textView = (TextView) findViewById(R.id.textViewHeading);
         textView.setText(collection);
@@ -74,6 +76,8 @@ public class CollectionViewActivity extends AppCompatActivity {
 
     public void AddItem(View view) {
         Intent intent = new Intent(this, AddItemActivity.class);
+        intent.putExtra("Collection", collection);
+
         this.startActivity(intent);
     }
 }

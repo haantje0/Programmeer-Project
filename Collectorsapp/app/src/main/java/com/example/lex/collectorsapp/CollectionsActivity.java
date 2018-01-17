@@ -15,9 +15,13 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import org.w3c.dom.Text;
 
 public class CollectionsActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
 
     String[] collections = {"Postzegels", "Stripboeken", "Films"};
 
@@ -28,7 +32,6 @@ public class CollectionsActivity extends AppCompatActivity {
 
         populateListView();
         clickcallback();
-
     }
 
     private void populateListView() {
