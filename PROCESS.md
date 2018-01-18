@@ -11,3 +11,7 @@
 ## day 3
 - The facebook login is working now. There is a problem with the connection with firebase, which makes it sometimes load infinitly long, and sometimes it works fine. I will try to find a solution for that later.
 - I can save data in the firebase database. This works withouth the dynamic specs.
+
+## day 4
+- The app can now store data to the database and also extract data and put it in views. The hardest part in this was to make sure the app reads the right data and gave that data to the next screen when you click a collection of item.
+- It is possible to delete collections or items via a longclick, which is secured via a popup.
