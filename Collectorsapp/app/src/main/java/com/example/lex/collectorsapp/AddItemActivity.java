@@ -130,8 +130,7 @@ public class AddItemActivity extends AppCompatActivity {
         setDate();
         setAmount();
         setExtraSpecs();
-        setImage();
-
+        //setImage();
 
         // check if the user chose an option
         if (specs.getName() == null) {

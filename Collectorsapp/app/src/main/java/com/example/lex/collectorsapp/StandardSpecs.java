@@ -56,6 +56,10 @@ class Specs {
         return description;
     }
 
+    public String getDate() {
+        return date;
+    }
+
     public String getExtraSpecs() {
         return extraSpecs;
     }

@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.view.menu.MenuView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -13,6 +17,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,33 +40,61 @@ class DatabaseManager {
         mAuth = FirebaseAuth.getInstance();
     }
 
+    public void getCollectionsFromDB(final Context context, final ListView listView) {
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // make the Specs arraylist
+                ArrayList<String> collections = new ArrayList<String>();
+
+                // get the right data and store it in the arraylist
+                for (DataSnapshot collection : dataSnapshot.child(mAuth.getUid()).getChildren()) {
+                        collections.add(collection.getKey());
+                }
+
+                Collections.sort(collections, new Comparator<String>() {
+                    @Override
+                    public int compare(String s1, String s2) {
+                        return s1.compareToIgnoreCase(s2);
+                    }
+                });
+
+                // inflate the eatlist in the listview
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.collectionlayout, collections);
+                listView.setAdapter(adapter);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }};
+        mDatabase.addValueEventListener(postListener);
+    }
+
     // get information form the database
-    public void getFromDB(final Context context, final ListView eatList) {
+    public void getItemsFromDB(final Context context, final ListView listView, final String Collection) {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // make the Specs arraylist
                 ArrayList<Specs> specsList = new ArrayList<Specs>();
 
-                // get the right data and store it in the arraylist
-                for (DataSnapshot house : dataSnapshot.getChildren()) {
-                    for (DataSnapshot person : house.getChildren()){
-                        specsList.add(person.getValue(Specs.class));
-                    }
+                // get the right data and store it
+                for (DataSnapshot item : dataSnapshot.child(mAuth.getUid()).child(Collection).getChildren()){
+                        specsList.add(item.getValue(Specs.class));
                 }
 
-                // ####
+                // #### TODO
                 Collections.sort(specsList, new Comparator<Specs>() {
                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override
                     public int compare(Specs ed1, Specs ed2) {
-                        return (ed1.name.compareTo(ed2.getName()));
+                        return (ed1.getName().compareToIgnoreCase(ed2.getName()));
                     }
                 });
 
                 // inflate the eatlist in the listview
-                ItemViewAdapter eatListAdapter = new ItemViewAdapter(context, specsList);
-                eatList.setAdapter(eatListAdapter);
+                ItemViewAdapter adapter = new ItemViewAdapter(context, specsList);
+                listView.setAdapter(adapter);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -86,9 +120,16 @@ class DatabaseManager {
         mDatabase.child(mAuth.getUid()).child(collection).child(specs.getName()).setValue(specs);
 
         // go back to TODO
-        Intent intent = new Intent(context, ItemViewActivity.class);
+        Intent intent = new Intent(context, CollectionViewActivity.class);
         context.startActivity(intent);
     }
 
+    public void deleteCollectionFromDB(String collection) {
+        mDatabase.child(mAuth.getUid()).child(collection).removeValue();
+    }
+
+    public void deleteItemFromDB(String collection, String item) {
+        mDatabase.child(mAuth.getUid()).child(collection).child(item).removeValue();
+    }
 }
 

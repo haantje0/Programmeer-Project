@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,8 +18,8 @@ import java.util.List;
  */
 
 public class ItemViewAdapter extends ArrayAdapter<Specs> {
-    public ItemViewAdapter(Context context, List<Specs> specs) {
-        super(context, R.layout.itemslayout, (List<Specs>) specs);
+    public ItemViewAdapter(Context context, ArrayList<Specs> specs) {
+        super(context, R.layout.itemslayout, (ArrayList<Specs>) specs);
     }
 
     @Override

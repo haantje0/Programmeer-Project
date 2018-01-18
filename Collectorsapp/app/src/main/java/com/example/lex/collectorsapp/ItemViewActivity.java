@@ -11,6 +11,10 @@ import android.widget.TextView;
 
 public class ItemViewActivity extends AppCompatActivity {
 
+    DatabaseManager dbManager = new DatabaseManager();
+
+    Specs specs = new Specs();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,14 +23,27 @@ public class ItemViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
-        String title = intent.getStringExtra("Title");
-        String description = intent.getStringExtra("Description");
+        specs.setName(intent.getStringExtra("Name"));
+        specs.setDescription(intent.getStringExtra("Description"));
+        specs.setDate(intent.getStringExtra("Date"));
+        specs.setAmount(intent.getStringExtra("Amount"));
+        specs.setExtraSpecs(intent.getStringExtra("ExtraSpecs"));
 
-        TextView textViewTitle = (TextView) findViewById(R.id.textViewName);
-        textViewTitle.setText(title);
+        makeTheView();
+    }
 
+    public void makeTheView() {
+        TextView textViewName = (TextView) findViewById(R.id.textViewName);
         TextView textViewDescription = (TextView) findViewById(R.id.textViewDescription);
-        textViewDescription.append(description);
+        TextView textViewDate = (TextView) findViewById(R.id.textViewDate);
+        TextView textViewAmount = (TextView) findViewById(R.id.textViewAmount);
+        TextView textViewExtraSpec = (TextView) findViewById(R.id.textViewExtraSpec);
+
+        textViewName.setText("Name: " + specs.getName());
+        textViewDescription.setText("Description: " + specs.getDescription());
+        textViewDate.setText("Date: " + specs.getDate());
+        textViewAmount.setText("Amount: " + specs.getAmount());
+        textViewExtraSpec.setText("Extra Spec: " + specs.getExtraSpecs());
     }
 
 }
