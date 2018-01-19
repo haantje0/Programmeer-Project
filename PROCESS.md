@@ -15,3 +15,8 @@
 ## day 4
 - The app can now store data to the database and also extract data and put it in views. The hardest part in this was to make sure the app reads the right data and gave that data to the next screen when you click a collection of item.
 - It is possible to delete collections or items via a longclick, which is secured via a popup.
+
+## day 5
+- I converged images to strings to be able to save them in firebase.
+- I made the layout better looking and more userfriendly.
+- I started with the dynamic specs.
