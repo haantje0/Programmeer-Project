@@ -35,17 +35,20 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Title"
-            android:ems="10"
-            android:id="@+id/editTextTitle"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/editTextTitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display2"/>
+
+        </android.support.design.widget.TextInputLayout>
 
         <TextView
             android:text="Specifications:"
@@ -82,12 +85,34 @@
             android:id="@+id/textView11"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-        <Button
-            android:text="Save"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/CollectionSaveButton"
-            android:onClick="SaveCollection" />
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/LinearLayoutExtraSpecs">
+
+                </LinearLayout>
+
+                <Button
+                    android:text="Save"
+                    android:drawableLeft="@drawable/ic_save_black_24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/CollectionSaveButton"
+                    android:onClick="SaveCollection"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 

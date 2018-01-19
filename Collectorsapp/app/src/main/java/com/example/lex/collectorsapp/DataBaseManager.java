@@ -104,7 +104,7 @@ class DatabaseManager {
     }
 
     public void addUser(String userID) {
-        mDatabase.setValue(userID);
+        mDatabase.child(userID).setValue(userID);
     }
 
     public void addCollectionToDB(Context context, String title) {

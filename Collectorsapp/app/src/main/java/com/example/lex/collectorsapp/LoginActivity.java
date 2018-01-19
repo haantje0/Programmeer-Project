@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken());
 
-                dbManager.addUser(mAuth.getUid());
+                //dbManager.addUser(mAuth.getUid());
 
                 Intent intent = new Intent(LoginActivity.this, CollectionsActivity.class);
                 LoginActivity.this.startActivity(intent);

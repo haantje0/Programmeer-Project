@@ -15,7 +15,7 @@ class Specs {
     public String date;
     public String amount;
     public String extraSpecs;
-    public Bitmap image;
+    public String image;
 
     public Specs() {}
 
@@ -44,7 +44,7 @@ class Specs {
         this.extraSpecs = extraSpecs;
     }
 
-    public void setImage(Bitmap image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -68,7 +68,7 @@ class Specs {
         return amount;
     }
 
-    public Bitmap getImage() {
+    public String getImage() {
         return image;
     }
 }

@@ -2,6 +2,8 @@ package com.example.lex.collectorsapp;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,10 +41,16 @@ public class ItemViewAdapter extends ArrayAdapter<Specs> {
         descriptionTextView.setText(description);
 
         // put the image in the view
-        Bitmap image = getItem(position).getImage();
+        String image = getItem(position).getImage();
+        byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         ImageView mImageView = (ImageView) theView.findViewById(R.id.imageViewItem);
-        mImageView.setImageBitmap(image);
+        mImageView.setImageBitmap(decodedByte);
 
         return theView;
+    }
+
+    public void getImage() {
+
     }
 }

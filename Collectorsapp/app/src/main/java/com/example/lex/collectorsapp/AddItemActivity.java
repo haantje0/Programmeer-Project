@@ -2,6 +2,7 @@ package com.example.lex.collectorsapp;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import java.util.Objects;
 
@@ -44,12 +47,14 @@ public class AddItemActivity extends AppCompatActivity {
     Specs specs = new Specs();
 
     String collection;
+    String imageString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
@@ -72,12 +77,27 @@ public class AddItemActivity extends AppCompatActivity {
         }
     }
 
+    public void encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        String imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+        imageString = imageEncoded;
+    }
+
+    // TODO set permission for camara?
+    public void getImage() {
+        byte[] decodedString = Base64.decode(imageString, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        // set in imageview
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             mImageView.setImageBitmap(imageBitmap);
+            encodeBitmapAndSaveToFirebase(imageBitmap);
         }
     }
 
@@ -117,8 +137,7 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     private void setImage() {
-        Bitmap image =((BitmapDrawable) mImageView.getDrawable()).getBitmap();
-        specs.setImage(image);
+        specs.setImage(imageString);
     }
 
     // submit the data
@@ -130,7 +149,7 @@ public class AddItemActivity extends AppCompatActivity {
         setDate();
         setAmount();
         setExtraSpecs();
-        //setImage();
+        setImage();
 
         // check if the user chose an option
         if (specs.getName() == null) {

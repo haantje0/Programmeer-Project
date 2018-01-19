@@ -16,58 +16,70 @@
 
         <ImageView
             android:layout_width="match_parent"
-            app:srcCompat="@android:drawable/ic_menu_camera"
+            app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
             android:id="@+id/imageViewAddPhoto"
             android:layout_weight="0.81"
             android:layout_height="wrap_content"
             android:onClick="AddPhoto" />
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Name"
-            android:ems="10"
-            android:id="@+id/editTextName" />
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Description"
-            android:ems="10"
-            android:id="@+id/editTextDescription" />
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/editTextDescription"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:ems="10"
-            android:id="@+id/editTextDate"
-            android:text="Date" />
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/editTextDate"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Date" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/editTextAmount"
-            android:text="Amount" />
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/editTextAmount"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Amount" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Extra Spec"
-            android:ems="10"
-            android:id="@+id/editTextExtraSpec" />
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/editTextExtraSpec"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Extra Spec" />
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:text="Save"
-            android:layout_width="match_parent"
+            android:drawableLeft="@drawable/ic_save_black_24dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/SpecSaveButton"
-            android:onClick="SaveItemSpecs" />
+            android:onClick="SaveItemSpecs"
+            android:layout_gravity="center"/>
     </LinearLayout>
 
     <android.support.design.widget.AppBarLayout
