@@ -46,7 +46,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="Title"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display2"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                android:inputType="textCapSentences"/>
 
         </android.support.design.widget.TextInputLayout>
 

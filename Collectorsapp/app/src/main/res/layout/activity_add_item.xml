@@ -29,7 +29,8 @@
                 android:id="@+id/editTextName"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="Name" />
+                android:hint="Name"
+                android:inputType="textCapSentences"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -39,7 +40,8 @@
                 android:id="@+id/editTextDescription"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="Description" />
+                android:hint="Description"
+                android:inputType="textCapSentences"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -49,7 +51,8 @@
                 android:id="@+id/editTextDate"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="Date" />
+                android:hint="Date"
+                android:inputType="date"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -59,7 +62,8 @@
                 android:id="@+id/editTextAmount"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="Amount" />
+                android:hint="Amount"
+                android:inputType="number"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -69,7 +73,8 @@
                 android:id="@+id/editTextExtraSpec"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="Extra Spec" />
+                android:hint="Extra Spec"
+                android:inputType="textCapSentences"/>
         </android.support.design.widget.TextInputLayout>
 
         <Button
