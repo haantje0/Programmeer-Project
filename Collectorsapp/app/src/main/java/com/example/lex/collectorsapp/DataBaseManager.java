@@ -79,7 +79,7 @@ class DatabaseManager {
                 ArrayList<Specs> specsList = new ArrayList<Specs>();
 
                 // get the right data and store it
-                for (DataSnapshot item : dataSnapshot.child(mAuth.getUid()).child(Collection).getChildren()){
+                for (DataSnapshot item : dataSnapshot.child(mAuth.getUid()).child(Collection).child(Collection).getChildren()){
                         specsList.add(item.getValue(Specs.class));
                 }
 
@@ -103,21 +103,21 @@ class DatabaseManager {
         mDatabase.addValueEventListener(postListener);
     }
 
-    public void addUser(String userID) {
-        mDatabase.child(userID).setValue(userID);
-    }
+    public void addCollectionToDB(Context context, String title,
+                                  ArrayList<String> specNames, ArrayList<String> specVars) {
+        for (Integer i = 0; i < specNames.size(); i++) {
+            mDatabase.child(mAuth.getUid()).child(title).child(title + "Specs").child(specNames.get(i)).setValue(specVars.get(i));
+        }
+        mDatabase.child(mAuth.getUid()).child(title).child(title).setValue(title);
 
-    public void addCollectionToDB(Context context, String title) {
-        mDatabase.child(mAuth.getUid()).child(title).setValue(title);
-
-        // go back to TODO
+        // go back to collections
         Intent intent = new Intent(context, CollectionsActivity.class);
         context.startActivity(intent);
     }
 
     // add values to the database
     public void addItemToDB(Context context, Specs specs, String collection) {
-        mDatabase.child(mAuth.getUid()).child(collection).child(specs.getName()).setValue(specs);
+        mDatabase.child(mAuth.getUid()).child(collection).child(collection).child(specs.getName()).setValue(specs);
 
         // go back to TODO
         Intent intent = new Intent(context, CollectionViewActivity.class);
@@ -129,7 +129,7 @@ class DatabaseManager {
     }
 
     public void deleteItemFromDB(String collection, String item) {
-        mDatabase.child(mAuth.getUid()).child(collection).child(item).removeValue();
+        mDatabase.child(mAuth.getUid()).child(collection).child(collection).child(item).removeValue();
     }
 }
 

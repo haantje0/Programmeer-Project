@@ -10,96 +10,107 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:weightSum="1">
+        android:layout_height="match_parent">
 
-        <ImageView
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
-            android:id="@+id/imageViewAddPhoto"
-            android:layout_weight="0.81"
             android:layout_height="wrap_content"
-            android:onClick="AddPhoto" />
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.design.widget.TextInputLayout
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/editTextName"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:hint="Name"
-                android:inputType="textCapSentences"/>
-        </android.support.design.widget.TextInputLayout>
+            android:layout_height="match_parent">
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/editTextDescription"
-                android:layout_width="fill_parent"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Description"
-                android:inputType="textCapSentences"/>
-        </android.support.design.widget.TextInputLayout>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:weightSum="1">
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/editTextDate"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:hint="Date"
-                android:inputType="date"/>
-        </android.support.design.widget.TextInputLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    app:srcCompat="@drawable/ic_add_a_photo_black_24dp"
+                    android:id="@+id/imageViewAddPhoto"
+                    android:layout_weight="0.81"
+                    android:layout_height="wrap_content"
+                    android:onClick="AddPhoto" />
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/editTextAmount"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:hint="Amount"
-                android:inputType="number"/>
-        </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/editTextName"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Name"
+                        android:inputType="textCapSentences"/>
+                </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/editTextExtraSpec"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:hint="Extra Spec"
-                android:inputType="textCapSentences"/>
-        </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/editTextDescription"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Description"
+                        android:inputType="textCapSentences"/>
+                </android.support.design.widget.TextInputLayout>
 
-        <Button
-            android:text="Save"
-            android:drawableLeft="@drawable/ic_save_black_24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/SpecSaveButton"
-            android:onClick="SaveItemSpecs"
-            android:layout_gravity="center"/>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/editTextDate"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Date"
+                        android:inputType="date"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/editTextAmount"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Amount"
+                        android:inputType="number"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/editTextExtraSpec"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Extra Spec"
+                        android:inputType="textCapSentences"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:text="Save"
+                    android:drawableLeft="@drawable/ic_save_black_24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/SpecSaveButton"
+                    android:onClick="SaveItemSpecs"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
-
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_add_item" />
 

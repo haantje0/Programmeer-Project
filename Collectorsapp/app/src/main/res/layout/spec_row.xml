@@ -11,10 +11,18 @@
         android:gravity="center"
         android:textColor="#FF0000"
         android:layout_width="50dp" />
+
     <TextView
         android:id="@+id/textout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/remove"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <TextView
+        android:id="@+id/vartype"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/textout"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 </RelativeLayout>
