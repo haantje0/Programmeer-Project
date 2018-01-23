@@ -20,3 +20,10 @@
 - I converged images to strings to be able to save them in firebase.
 - I made the layout better looking and more userfriendly.
 - I started with the dynamic specs.
+
+# week 3
+
+## day 1
+- The dynamic specs can be saved to firebase. But it is not easy to load them back. This is because I used ArrayLists.
+
+## day 2
