@@ -70,26 +70,12 @@
 
         </LinearLayout>
 
-        <TextView
-            android:text="Date: "
+        <LinearLayout
+            android:id="@+id/linearLayoutExtraSpecsItemView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textViewDate"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-        <TextView
-            android:text="Amount: "
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textViewAmount"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-        <TextView
-            android:text="Extra Spec: "
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textViewExtraSpec"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:layout_height="match_parent"
+            android:layout_weight="0.03"
+            android:orientation="vertical"></LinearLayout>
 
     </LinearLayout>
 

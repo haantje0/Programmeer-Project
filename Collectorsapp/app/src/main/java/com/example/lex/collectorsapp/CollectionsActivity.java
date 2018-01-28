@@ -38,7 +38,7 @@ public class CollectionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collections);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Collections");
+        toolbar.setTitle("Your Collections");
         setSupportActionBar(toolbar);
 
         dbManager.setDatabase();

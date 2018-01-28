@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 public class CollectionViewActivity extends AppCompatActivity {
@@ -89,14 +90,13 @@ public class CollectionViewActivity extends AppCompatActivity {
                 Specs specs = (Specs) parent.getItemAtPosition(position);
                 intent.putExtra("Name", (String) specs.getName());
                 intent.putExtra("Description", (String) specs.getDescription());
-                intent.putExtra("Date", (String) specs.getDate());
-                intent.putExtra("Amount", (String) specs.getAmount());
                 intent.putExtra("Image", (String) specs.getImage());
-                intent.putExtra("ExtraSpecs", (String) specs.getExtraSpecs());
+                intent.putExtra("ExtraSpecs", (HashMap<String, String>) specs.getExtraSpecs());
 
                 context.startActivity(intent);
             }
         });
+        // TODO zorgen dat het klikken meteen werkt
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View viewClicked, int position, long id) {

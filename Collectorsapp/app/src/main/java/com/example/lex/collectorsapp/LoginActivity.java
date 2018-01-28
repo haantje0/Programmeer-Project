@@ -13,6 +13,8 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -25,6 +27,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -35,14 +38,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    Button ContinueAsButton;
+    Button continueAsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
 
-        ContinueAsButton = (Button) findViewById(R.id.ContinueAsButton);
+        continueAsButton = (Button) findViewById(R.id.ContinueAsButton);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -50,6 +55,8 @@ public class LoginActivity extends AppCompatActivity {
 
         InitializeFacebookManager();
         InitializeFacebookButton();
+
+        setButton();
     }
 
     @Override
@@ -67,9 +74,8 @@ public class LoginActivity extends AppCompatActivity {
     public void InitializeFacebookButton() {
         // Initialize Facebook Login button
         LoginButton loginButton = findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.setReadPermissions("email", "public_profile", "user_friends");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-
 
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -149,9 +155,22 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    private void setButton() {
+        // TODO FirebaseUser test = mAuth.getCurrentUser();
+
+        if (mAuth.getCurrentUser() != null) {
+            String name = mAuth.getCurrentUser().getDisplayName().toString();
+            continueAsButton.setText("Continue As " + name);
+        }
+        else {
+            continueAsButton.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+        setButton();
     }
 }

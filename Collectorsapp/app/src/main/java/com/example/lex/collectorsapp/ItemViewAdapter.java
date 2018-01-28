@@ -42,15 +42,15 @@ public class ItemViewAdapter extends ArrayAdapter<Specs> {
 
         // put the image in the view
         String image = getItem(position).getImage();
-        byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         ImageView mImageView = (ImageView) theView.findViewById(R.id.imageViewItem);
-        mImageView.setImageBitmap(decodedByte);
+        if (image.length() == 0) {
+            mImageView.setImageResource(R.drawable.ic_photo_black_24dp);
+        } else {
+            byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            mImageView.setImageBitmap(decodedByte);
+        }
 
         return theView;
-    }
-
-    public void getImage() {
-
     }
 }

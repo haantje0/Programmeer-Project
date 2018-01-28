@@ -67,38 +67,12 @@
                         android:inputType="textCapSentences"/>
                 </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <LinearLayout
+                    android:id="@+id/LinearLayoutExtraTextInput"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/editTextDate"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Date"
-                        android:inputType="date"/>
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/editTextAmount"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Amount"
-                        android:inputType="number"/>
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/editTextExtraSpec"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Extra Spec"
-                        android:inputType="textCapSentences"/>
-                </android.support.design.widget.TextInputLayout>
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.81"
+                    android:orientation="vertical"></LinearLayout>
 
                 <Button
                     android:text="Save"

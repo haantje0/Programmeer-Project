@@ -12,9 +12,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".LoginActivity">
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -22,23 +24,35 @@
         <activity
             android:name=".CollectionsActivity"
             android:label="@string/title_activity_collections"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:parentActivityName="com.example.lex.collectorsapp.LoginActivity"/>
         <activity
             android:name=".AddCollectionActivity"
             android:label="@string/title_activity_add_collection"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:noHistory="true"
+            android:parentActivityName="com.example.lex.collectorsapp.CollectionsActivity"/>
         <activity
             android:name=".CollectionViewActivity"
             android:label="@string/title_activity_collection_view"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:parentActivityName="com.example.lex.collectorsapp.CollectionsActivity"/>
         <activity
             android:name=".ItemViewActivity"
             android:label="@string/title_activity_item_view"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:parentActivityName="com.example.lex.collectorsapp.CollectionViewActivity"/>
         <activity
             android:name=".AddItemActivity"
             android:label="@string/title_activity_add_item"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:noHistory="true"
+            android:parentActivityName="com.example.lex.collectorsapp.CollectionViewActivity"></activity>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>

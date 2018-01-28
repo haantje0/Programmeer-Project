@@ -26,6 +26,7 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.example.lex.collectorsapp.R.id.container;
 
@@ -36,8 +37,10 @@ public class AddCollectionActivity extends AppCompatActivity {
     EditText editTextTitle;
 
     String title;
-    ArrayList<String> extraSpecs = new ArrayList<String>();
-    ArrayList<String> extraSpecsvars = new ArrayList<String>();
+
+    HashMap<String, String> extraSpecs = new HashMap<>();
+
+    Boolean empty = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,21 +111,25 @@ public class AddCollectionActivity extends AppCompatActivity {
     }
 
     public void setExtraSpecs() {
-        extraSpecs = new ArrayList<>();
-        extraSpecsvars = new ArrayList<>();
-
+        extraSpecs = new HashMap<>();
         LinearLayout linearLayout = findViewById(R.id.LinearLayoutExtraSpecs);
+        empty = false;
 
         for (int i = 0; i < linearLayout.getChildCount(); i++) {
             if (linearLayout.getChildAt(i) instanceof View) {
                 View view = (View) linearLayout.getChildAt(i);
 
                 TextView textViewSpec = view.findViewById(R.id.textout);
-                extraSpecs.add(textViewSpec.getText().toString());
-
                 TextView textViewVar = view.findViewById(R.id.vartype);
+
+                String extraSpec = textViewSpec.getText().toString();
                 String var = textViewVar.getText().toString();
-                extraSpecsvars.add(var.substring(2, var.length() - 1));
+
+                if (extraSpec.length() == 0) {
+                    empty = true;
+                }
+
+                extraSpecs.put(extraSpec, var.substring(2, var.length() - 1));
             }
         }
     }
@@ -136,16 +143,12 @@ public class AddCollectionActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         }
         else {
-            Boolean empty = false;
-            for (Integer i=0; i < extraSpecs.size(); i++) {
-                if (extraSpecs.get(i).length() == 0) {
-                    Toast.makeText(AddCollectionActivity.this, "Remove your empty specifications!",
-                            Toast.LENGTH_SHORT).show();
-                    empty = true;
-                }
-            }
             if (empty == false) {
-                dbManager.addCollectionToDB(AddCollectionActivity.this, title, extraSpecs, extraSpecsvars);
+                dbManager.addCollectionToDB(AddCollectionActivity.this, title, extraSpecs);
+            }
+            else {
+                Toast.makeText(AddCollectionActivity.this, "Delete your empty specifications!",
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }

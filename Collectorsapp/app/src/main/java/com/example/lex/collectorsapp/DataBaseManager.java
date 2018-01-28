@@ -3,11 +3,16 @@ package com.example.lex.collectorsapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.provider.ContactsContract;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.view.menu.MenuView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,6 +28,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 
 /**
  * Created by lex on 1/16/2018.
@@ -79,11 +85,11 @@ class DatabaseManager {
                 ArrayList<Specs> specsList = new ArrayList<Specs>();
 
                 // get the right data and store it
+                String test = mAuth.getUid();
                 for (DataSnapshot item : dataSnapshot.child(mAuth.getUid()).child(Collection).child(Collection).getChildren()){
                         specsList.add(item.getValue(Specs.class));
                 }
 
-                // #### TODO
                 Collections.sort(specsList, new Comparator<Specs>() {
                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override
@@ -103,15 +109,39 @@ class DatabaseManager {
         mDatabase.addValueEventListener(postListener);
     }
 
-    public void addCollectionToDB(Context context, String title,
-                                  ArrayList<String> specNames, ArrayList<String> specVars) {
-        for (Integer i = 0; i < specNames.size(); i++) {
-            mDatabase.child(mAuth.getUid()).child(title).child(title + "Specs").child(specNames.get(i)).setValue(specVars.get(i));
-        }
+    public void getExtraSpecsFromDB(final Context context, final LinearLayout linearLayout, final String collection) {
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot spec : dataSnapshot.child(mAuth.getUid()).child(collection).child(collection + "Specs").getChildren()) {
+                    LayoutInflater layoutInflater =
+                            (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    final View addView = layoutInflater.inflate(R.layout.spec_textinput, null);
+
+                    TextInputLayout textInputLayout = addView.findViewById(R.id.textInputLayoutAddItem);
+                    EditText editText = addView.findViewById(R.id.editTextSpec);
+                    textInputLayout.setHint(spec.getKey());
+                    if (spec.getValue().toString() == "Number") {
+                        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    }
+
+                    linearLayout.addView(addView);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }};
+        mDatabase.addValueEventListener(postListener);
+    }
+
+    public void addCollectionToDB(Context context, String title, HashMap<String, String> extraSpecs) {
+        mDatabase.child(mAuth.getUid()).child(title).child(title + "Specs").setValue(extraSpecs);
         mDatabase.child(mAuth.getUid()).child(title).child(title).setValue(title);
 
         // go back to collections
         Intent intent = new Intent(context, CollectionsActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
 
@@ -119,8 +149,10 @@ class DatabaseManager {
     public void addItemToDB(Context context, Specs specs, String collection) {
         mDatabase.child(mAuth.getUid()).child(collection).child(collection).child(specs.getName()).setValue(specs);
 
-        // go back to TODO
+        // go back to the collection
         Intent intent = new Intent(context, CollectionViewActivity.class);
+        intent.putExtra("Collection", (String) collection);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
 

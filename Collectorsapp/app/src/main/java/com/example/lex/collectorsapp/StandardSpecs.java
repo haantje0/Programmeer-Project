@@ -2,6 +2,8 @@ package com.example.lex.collectorsapp;
 
 import android.graphics.Bitmap;
 
+import java.util.HashMap;
+
 /**
  * Created by lex on 1/11/2018.
  */
@@ -9,12 +11,8 @@ import android.graphics.Bitmap;
 class Specs {
 
     public String name;
-
-
     public String description;
-    public String date;
-    public String amount;
-    public String extraSpecs;
+    public HashMap<String, String> extraSpecs = new HashMap<>();
     public String image;
 
     public Specs() {}
@@ -32,15 +30,7 @@ class Specs {
         this.description = description;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void setAmount(String amount) {
-        this.amount = amount;
-    }
-
-    public void setExtraSpecs(String extraSpecs) {
+    public void setExtraSpecs(HashMap<String, String> extraSpecs) {
         this.extraSpecs = extraSpecs;
     }
 
@@ -56,16 +46,8 @@ class Specs {
         return description;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public String getExtraSpecs() {
+    public HashMap<String, String> getExtraSpecs() {
         return extraSpecs;
-    }
-
-    public String getAmount() {
-        return amount;
     }
 
     public String getImage() {
