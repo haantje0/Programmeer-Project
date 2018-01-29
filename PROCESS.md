@@ -26,4 +26,22 @@
 ## day 1
 - The dynamic specs can be saved to firebase. But it is not easy to load them back. This is because I used ArrayLists.
 
-## day 2
+## day 4
+- I updated my android studio and the app did not work anymore. I did not fix the but this day.
+
+## day 5
+- I tried to fix the but all day. The app was finally back and running at the end of the day.
+
+## day 6
+- I completed the dinamic specs. 
+- I changed the extra specs to a Hashmap instead of an ArrayList, which made it easier to load from and to firebase.
+
+## day 7
+- I made a friendlist with facebook friends who also use the app. These friends do not show profile pictures. If I load all friends from the user, they do have pictures. I'm going to sort this out another time.
+- back navigation is now working a lot better in the app.
+
+# week 4
+
+## day 1
+- I changed the authentication mechanism and changed its back navigation.
+- The authentication is now working a lot better and the app finally realy sees who is loged in. I needed this to finish the view for the collections of friends.
