@@ -21,12 +21,23 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="Continue as:"
+        android:id="@+id/ContinueAsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login_button"
+        android:layout_above="@+id/login_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="23dp"
-        android:id="@+id/ContinueAsButton"
-        android:onClick="ContinueAs" />
+        android:layout_marginBottom="15dp"
+        android:onClick="ContinueAs"
+        android:text="Continue" />
+
+    <TextView
+        android:id="@+id/TextViewWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text="Welcome"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 </RelativeLayout>

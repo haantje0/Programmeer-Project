@@ -52,8 +52,7 @@ public class CollectionsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -64,9 +63,15 @@ public class CollectionsActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //  noinspection SimplifiableIfStatement
         if (id == R.id.friends) {
-            Toast.makeText(CollectionsActivity.this, "Action clicked", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, FriendsActivity.class);
+            this.startActivity(intent);
+            return true;
+        }
+        else if (id == R.id.logout) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            this.startActivity(intent);
             return true;
         }
 

@@ -71,7 +71,13 @@ public class CollectionViewActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.friends) {
-            Toast.makeText(CollectionViewActivity.this, "Action clicked", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, FriendsActivity.class);
+            this.startActivity(intent);
+            return true;
+        }
+        else if (id == R.id.logout) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            this.startActivity(intent);
             return true;
         }
 

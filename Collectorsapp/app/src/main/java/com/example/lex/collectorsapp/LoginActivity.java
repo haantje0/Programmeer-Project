@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookActivity;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
@@ -27,8 +30,6 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.json.JSONObject;
-
 public class LoginActivity extends AppCompatActivity {
 
     static final String TAG = "loginactivity";
@@ -39,15 +40,17 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     Button continueAsButton;
+    TextView welcomeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
         FacebookSdk.sdkInitialize(getApplicationContext());
+        setContentView(R.layout.activity_login);
         AppEventsLogger.activateApp(this);
 
         continueAsButton = (Button) findViewById(R.id.ContinueAsButton);
+        welcomeTextView = (TextView) findViewById(R.id.TextViewWelcome);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -68,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void ContinueAs(View view) {
         Intent intent = new Intent(this, CollectionsActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         this.startActivity(intent);
     }
 
@@ -80,11 +84,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken());
-
-                //dbManager.addUser(mAuth.getUid());
-
-                Intent intent = new Intent(LoginActivity.this, CollectionsActivity.class);
-                LoginActivity.this.startActivity(intent);
             }
 
             @Override
@@ -96,9 +95,17 @@ public class LoginActivity extends AppCompatActivity {
             public void onError(FacebookException error) {
                 Log.d(TAG, error.toString());
             }
-
-
         });
+
+        AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
+                                                       AccessToken currentAccessToken) {
+                if (currentAccessToken == null) {
+                    setButton();
+                }
+            }
+        };
     }
 
     public void InitializeFacebookManager() {
@@ -123,8 +130,6 @@ public class LoginActivity extends AppCompatActivity {
                         // App code
                         Log.d(TAG, exception.toString());
                     }
-
-
                 });
     }
 
@@ -138,6 +143,10 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            Intent intent = new Intent(LoginActivity.this, CollectionsActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            LoginActivity.this.startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
@@ -156,14 +165,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setButton() {
-        // TODO FirebaseUser test = mAuth.getCurrentUser();
-
-        if (mAuth.getCurrentUser() != null) {
-            String name = mAuth.getCurrentUser().getDisplayName().toString();
-            continueAsButton.setText("Continue As " + name);
+        if (AccessToken.getCurrentAccessToken() == null) {
+            LoginManager.getInstance().logOut();
+            mAuth.signOut();
+            continueAsButton.setVisibility(View.GONE);
+            welcomeTextView.setVisibility(View.GONE);
         }
         else {
-            continueAsButton.setVisibility(View.GONE);
+            String name = mAuth.getCurrentUser().getDisplayName().toString();
+            welcomeTextView.setText("Welcome " + name + "!");
         }
     }
 
@@ -171,6 +181,5 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
-        setButton();
     }
 }

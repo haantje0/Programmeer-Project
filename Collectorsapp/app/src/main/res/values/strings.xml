@@ -7,5 +7,6 @@
     <string name="title_activity_add_item">AddItemActivity</string>
     <string name="facebook_app_id">143776942971861</string>
     <string name="fb_login_protocol_scheme">fb143776942971861</string>
+    <string name="title_activity_friends">FriendsActivity</string>
 
 </resources>
