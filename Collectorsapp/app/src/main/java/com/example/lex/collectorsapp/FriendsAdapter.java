@@ -3,9 +3,7 @@ package com.example.lex.collectorsapp;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -25,7 +21,7 @@ import java.util.ArrayList;
  */
 
 public class FriendsAdapter extends ArrayAdapter<FriendItem> {
-    public FriendsAdapter(Context context, ArrayList<FriendItem> friendList) {
+    FriendsAdapter(Context context, ArrayList<FriendItem> friendList) {
         super(context, R.layout.itemslayout, (ArrayList<FriendItem>) friendList);
     }
 
@@ -72,7 +68,7 @@ public class FriendsAdapter extends ArrayAdapter<FriendItem> {
 
         private Bitmap download_Image(String url) {
 
-            Bitmap bmp =null;
+            Bitmap bmp;
             try{
                 URL ulrn = new URL(url);
                 HttpURLConnection con = (HttpURLConnection)ulrn.openConnection();
@@ -81,8 +77,8 @@ public class FriendsAdapter extends ArrayAdapter<FriendItem> {
                 if (null != bmp)
                     return bmp;
 
-            }catch(Exception e){}
-            return bmp;
+            }catch(Exception ignored){}
+            return null;
         }
     }
 }

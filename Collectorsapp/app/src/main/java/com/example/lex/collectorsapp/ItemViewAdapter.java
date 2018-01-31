@@ -11,17 +11,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by lex on 1/11/2018.
  */
 
 public class ItemViewAdapter extends ArrayAdapter<Specs> {
-    public ItemViewAdapter(Context context, ArrayList<Specs> specs) {
-        super(context, R.layout.itemslayout, (ArrayList<Specs>) specs);
+    ItemViewAdapter(Context context, ArrayList<Specs> specs) {
+        super(context, R.layout.itemslayout, specs);
     }
 
     @Override
@@ -32,17 +30,17 @@ public class ItemViewAdapter extends ArrayAdapter<Specs> {
 
         // put the name in the view
         String title = getItem(position).getName();
-        TextView titleTextView = (TextView) theView.findViewById(R.id.textViewTitle);
+        TextView titleTextView = theView.findViewById(R.id.textViewTitle);
         titleTextView.setText(title);
 
         // put the description in the view
         String description = getItem(position).getDescription();
-        TextView descriptionTextView = (TextView) theView.findViewById(R.id.textViewDescription);
+        TextView descriptionTextView = theView.findViewById(R.id.textViewDescription);
         descriptionTextView.setText(description);
 
         // put the image in the view
         String image = getItem(position).getImage();
-        ImageView mImageView = (ImageView) theView.findViewById(R.id.imageViewItem);
+        ImageView mImageView = theView.findViewById(R.id.imageViewItem);
         if (image.length() == 0) {
             mImageView.setImageResource(R.drawable.ic_photo_black_24dp);
         } else {

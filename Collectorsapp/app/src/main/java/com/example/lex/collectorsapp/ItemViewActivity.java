@@ -1,12 +1,11 @@
 package com.example.lex.collectorsapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
@@ -17,13 +16,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public class ItemViewActivity extends AppCompatActivity {
+/**
+ * Created by lex on 1/16/2018.
+ */
 
-    DatabaseManager dbManager = new DatabaseManager();
+public class ItemViewActivity extends AppCompatActivity {
 
     Specs specs = new Specs();
 
@@ -31,7 +31,7 @@ public class ItemViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_view);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
@@ -44,15 +44,14 @@ public class ItemViewActivity extends AppCompatActivity {
         makeTheView();
     }
 
+    @SuppressLint("SetTextI18n")
     public void makeTheView() {
-        TextView textViewName = (TextView) findViewById(R.id.textViewName);
-        TextView textViewDescription = (TextView) findViewById(R.id.textViewDescription);
-        ImageView imageView = (ImageView) findViewById(R.id.imageViewItemView);
-        //TextView textViewExtraSpec = (TextView) findViewById(R.id.textViewExtraSpec);
+        TextView textViewName = findViewById(R.id.textViewName);
+        TextView textViewDescription = findViewById(R.id.textViewDescription);
+        ImageView imageView = findViewById(R.id.imageViewItemView);
 
         textViewName.setText(specs.getName());
         textViewDescription.setText(specs.getDescription());
-        //textViewExtraSpec.setText("Extra Spec: " + specs.getExtraSpecsFromDB());
 
         String image = specs.getImage();
         if (image.length() == 0) {
@@ -68,9 +67,8 @@ public class ItemViewActivity extends AppCompatActivity {
         HashMap<String, String> extraSpecs = specs.getExtraSpecs();
 
         Set mapSet = extraSpecs.entrySet();
-        Iterator mapIterator = mapSet.iterator();
-        while (mapIterator.hasNext()) {
-            Map.Entry mapEntry = (Map.Entry) mapIterator.next();
+        for (Object aMapSet : mapSet) {
+            Map.Entry mapEntry = (Map.Entry) aMapSet;
             String keyValue = (String) mapEntry.getKey();
             String value = (String) mapEntry.getValue();
 

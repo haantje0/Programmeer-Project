@@ -1,16 +1,9 @@
 package com.example.lex.collectorsapp;
 
-import android.app.DownloadManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,38 +11,36 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphRequestAsyncTask;
 import com.facebook.GraphResponse;
-import com.google.android.gms.common.api.Response;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-import javax.security.auth.callback.Callback;
+/**
+ * Created by lex on 1/16/2018.
+ */
 
-// TODO https://github.com/sallySalem/Facebook-Friends-list
+// get friendslist from facebook from: https://github.com/sallySalem/Facebook-Friends-list
 
 public class FriendsActivity extends AppCompatActivity {
 
     DatabaseManager dbManager = new DatabaseManager();
 
-    private ArrayList<FriendItem> friendsList = new ArrayList<FriendItem>();
+    private ArrayList<FriendItem> friendsList = new ArrayList<>();
     private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         dbManager.setDatabase();
@@ -67,12 +58,8 @@ public class FriendsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        // TODO noinspection SimplifiableIfStatement
         if (id == R.id.home) {
             Intent intent = new Intent(this, CollectionsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -93,13 +80,12 @@ public class FriendsActivity extends AppCompatActivity {
         AccessToken fbToken = AccessToken.getCurrentAccessToken();
         GraphRequestAsyncTask r = GraphRequest.newGraphPathRequest(fbToken,
                 "/me/friends", new GraphRequest.Callback() {
-                    // TODO gives no picture
+                    // TODO profile picture
                     @Override
                     public void onCompleted(GraphResponse response) {
                         parseResponse(response.getJSONObject());
                     }
                 }
-
         ).executeAsync();
     }
 
@@ -111,8 +97,9 @@ public class FriendsActivity extends AppCompatActivity {
                 for (int i = 0; i < friendsArray.length(); i++) {
                     FriendItem item = new FriendItem();
                     try {
-                        // TODO
-                        item.setUserId(friendsArray.getJSONObject(i).get("id").toString());
+                        // TODO profile picture
+                        String userID = friendsArray.getJSONObject(i).get("id").toString();
+                        item.setUserId(userID);
                         item.setUserName(friendsArray.getJSONObject(i).get("name").toString());
 
                         JSONObject picObject = new JSONObject(friendsArray
@@ -120,6 +107,7 @@ public class FriendsActivity extends AppCompatActivity {
                         String picURL = (new JSONObject(picObject
                                 .get("data").toString())).get("url").toString();
                         item.setPictureURL(picURL);
+
                         friendsList.add(item);
 
                     } catch (JSONException e) {
@@ -127,12 +115,11 @@ public class FriendsActivity extends AppCompatActivity {
                         friendsList.add(item);
                     }
                 }
-                // facebook use paging if have "next" this mean you still have friends if not start load fbFriends list
+                // Facebook use paging if have "next" this mean you still have friends
+                // if not start load fbFriends list
                 String next = friends.getJSONObject("paging")
                         .getString("next");
-                if (next != null) {
-                    //getFBFriendsList(next);
-                } else {
+                if (next == null) {
                     loadFriendsList();
                 }
             }
@@ -158,8 +145,8 @@ public class FriendsActivity extends AppCompatActivity {
                 Intent intent = new Intent(context, CollectionsActivity.class);
 
                 FriendItem friend = (FriendItem) parent.getItemAtPosition(position);
-                intent.putExtra("FriendID", (String) friend.getUserId());
-                intent.putExtra("FriendName", (String) friend.getUserName());
+                intent.putExtra("FriendID", friend.getUserId());
+                intent.putExtra("FriendName", friend.getUserName());
 
                 context.startActivity(intent);
             }

@@ -1,7 +1,5 @@
 package com.example.lex.collectorsapp;
 
-import android.graphics.Bitmap;
-
 import java.util.HashMap;
 
 /**
@@ -16,11 +14,6 @@ class Specs {
     public String image;
 
     public Specs() {}
-
-    public Specs(String Name, String Description) {
-        setName(Name);
-        setDescription(Description);
-    }
 
     public void setName(String name) {
         this.name = name;

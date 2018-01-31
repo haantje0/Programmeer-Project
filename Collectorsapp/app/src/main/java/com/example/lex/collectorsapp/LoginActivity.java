@@ -13,11 +13,8 @@ import android.widget.Toast;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookActivity;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -28,12 +25,14 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
+/**
+ * Created by lex on 1/16/2018.
+ */
 
 public class LoginActivity extends AppCompatActivity {
 
     static final String TAG = "loginactivity";
-    DatabaseManager dbManager = new DatabaseManager();
 
     CallbackManager callbackManager = CallbackManager.Factory.create();
 
@@ -45,28 +44,17 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
-        AppEventsLogger.activateApp(this);
 
-        continueAsButton = (Button) findViewById(R.id.ContinueAsButton);
-        welcomeTextView = (TextView) findViewById(R.id.TextViewWelcome);
+        continueAsButton = findViewById(R.id.ContinueAsButton);
+        welcomeTextView = findViewById(R.id.TextViewWelcome);
 
         mAuth = FirebaseAuth.getInstance();
-
-        dbManager.setDatabase();
 
         InitializeFacebookManager();
         InitializeFacebookButton();
 
         setButton();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
     public void ContinueAs(View view) {
@@ -109,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void InitializeFacebookManager() {
-        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        LoginButton loginButton = findViewById(R.id.login_button);
         loginButton.setReadPermissions("email", "public_profile");
 
         LoginManager.getInstance().registerCallback(callbackManager,
@@ -142,8 +130,6 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-
                             Intent intent = new Intent(LoginActivity.this, CollectionsActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             LoginActivity.this.startActivity(intent);

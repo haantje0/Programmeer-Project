@@ -4,33 +4,33 @@ package com.example.lex.collectorsapp;
  * Created by lex on 28/01/2018.
  */
 
-public class FriendItem {
+class FriendItem {
 
-    String userId;
-    String userName;
-    String pictureURL;
+    private String userId;
+    private String userName;
+    private String pictureURL;
 
-    public void setUserId(String userId) {
+    void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public void setUserName(String userName) {
+    void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public void setPictureURL(String picURL) {
+    void setPictureURL(String picURL) {
         this.pictureURL = picURL;
     }
 
-    public String getUserId() {
+    String getUserId() {
         return userId;
     }
 
-    public String getUserName() {
+    String getUserName() {
         return userName;
     }
 
-    public String getPictureURL() {
+    String getPictureURL() {
         return pictureURL;
     }
 }

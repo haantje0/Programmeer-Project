@@ -1,33 +1,22 @@
 package com.example.lex.collectorsapp;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-
-import org.w3c.dom.Text;
-
-// used toolbar info from https://medium.com/@101/android-toolbar-for-appcompatactivity-671b1d10f354
+/**
+ * Created by lex on 1/16/2018.
+ */
 
 public class CollectionsActivity extends AppCompatActivity {
 
@@ -47,7 +36,7 @@ public class CollectionsActivity extends AppCompatActivity {
 
         setDatabase();
 
-        ListView listView = (ListView) findViewById(R.id.listViewCollections);
+        ListView listView = findViewById(R.id.listViewCollections);
         dbManager.getCollectionsFromDB(this, listView);
 
         clickcallback();
@@ -91,7 +80,7 @@ public class CollectionsActivity extends AppCompatActivity {
     }
 
     private void setDatabase() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         if (friendID == null) {
             toolbar.setTitle("Your Collections");
@@ -111,7 +100,7 @@ public class CollectionsActivity extends AppCompatActivity {
     }
 
     private void clickcallback() {
-        final ListView listView = (ListView) findViewById(R.id.listViewCollections);
+        final ListView listView = findViewById(R.id.listViewCollections);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
@@ -119,7 +108,7 @@ public class CollectionsActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(context, CollectionViewActivity.class);
                 intent.putExtra("Collection", (String) parent.getItemAtPosition(position));
-                intent.putExtra("FriendID", (String) friendID);
+                intent.putExtra("FriendID", friendID);
 
                 context.startActivity(intent);
             }

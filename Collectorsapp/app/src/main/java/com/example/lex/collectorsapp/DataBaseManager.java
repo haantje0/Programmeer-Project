@@ -3,10 +3,8 @@ package com.example.lex.collectorsapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.provider.ContactsContract;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.view.menu.MenuView;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,17 +12,13 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.facebook.AccessToken;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,24 +36,24 @@ class DatabaseManager {
     private String facebookID;
 
     // set database instance
-    public void setDatabase() {
+    void setDatabase() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         facebookID = AccessToken.getCurrentAccessToken().getUserId();
     }
 
-    public void setFriendDatabase(String facebookID) {
+    void setFriendDatabase(String facebookID) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         this.facebookID = facebookID;
     }
 
-    public void getCollectionsFromDB(final Context context, final ListView listView) {
+    void getCollectionsFromDB(final Context context, final ListView listView) {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // make the Specs arraylist
-                ArrayList<String> collections = new ArrayList<String>();
+                ArrayList<String> collections = new ArrayList<>();
 
                 // get the right data and store it in the arraylist
                 for (DataSnapshot collection : dataSnapshot.child(facebookID).getChildren()) {
@@ -74,7 +68,7 @@ class DatabaseManager {
                 });
 
                 // inflate the eatlist in the listview
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.collectionlayout, collections);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.collectionlayout, collections);
                 listView.setAdapter(adapter);
             }
             @Override
@@ -85,12 +79,12 @@ class DatabaseManager {
     }
 
     // get information form the database
-    public void getItemsFromDB(final Context context, final ListView listView, final String Collection) {
+    void getItemsFromDB(final Context context, final ListView listView, final String Collection) {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // make the Specs arraylist
-                ArrayList<Specs> specsList = new ArrayList<Specs>();
+                ArrayList<Specs> specsList = new ArrayList<>();
 
                 // get the right data and store it
                 for (DataSnapshot item : dataSnapshot.child(facebookID).child(Collection).child(Collection).getChildren()){
@@ -116,11 +110,10 @@ class DatabaseManager {
         mDatabase.addValueEventListener(postListener);
     }
 
-    public void getExtraSpecsFromDB(final Context context,
-                                    final LinearLayout linearLayout, final String collection) {
+    void getExtraSpecsFromDB(final Context context,
+                             final LinearLayout linearLayout, final String collection) {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
-            // TODO number
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot spec : dataSnapshot.child(facebookID).child(collection)
                         .child(collection + "Specs").getChildren()) {
@@ -145,7 +138,7 @@ class DatabaseManager {
         mDatabase.addListenerForSingleValueEvent(postListener);
     }
 
-    public void addCollectionToDB(Context context, String title, HashMap<String, String> extraSpecs) {
+    void addCollectionToDB(Context context, String title, HashMap<String, String> extraSpecs) {
         mDatabase.child(facebookID).child(title).child(title + "Specs").setValue(extraSpecs);
         mDatabase.child(facebookID).child(title).child(title).setValue(title);
 
@@ -156,7 +149,7 @@ class DatabaseManager {
     }
 
     // add values to the database
-    public void addItemToDB(Context context, Specs specs, String collection) {
+    void addItemToDB(Context context, Specs specs, String collection) {
         mDatabase.child(facebookID).child(collection).child(collection).child(specs.getName()).setValue(specs);
 
         // go back to the collection

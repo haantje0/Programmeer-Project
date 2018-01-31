@@ -19,6 +19,10 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
+/**
+ * Created by lex on 1/16/2018.
+ */
+
 public class AddItemActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -127,7 +131,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         for (int i = 0; i < linearLayout.getChildCount(); i++) {
             if (linearLayout.getChildAt(i) != null) {
-                View view = (View) linearLayout.getChildAt(i);
+                View view = linearLayout.getChildAt(i);
 
                 EditText editTextSpec = view.findViewById(R.id.editTextSpec);
                 TextInputLayout textInputLayout = view.findViewById(R.id.textInputLayoutAddItem);
