@@ -1,11 +1,14 @@
 package com.example.lex.collectorsapp;
 
 import android.app.DownloadManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,7 +35,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.security.auth.callback.Callback;
-
 
 // TODO https://github.com/sallySalem/Facebook-Friends-list
 
@@ -108,17 +111,14 @@ public class FriendsActivity extends AppCompatActivity {
                 for (int i = 0; i < friendsArray.length(); i++) {
                     FriendItem item = new FriendItem();
                     try {
-                        item.setUserId(friendsArray.getJSONObject(i).get(
-                                "id")
-                                + "");
+                        // TODO
+                        item.setUserId(friendsArray.getJSONObject(i).get("id").toString());
+                        item.setUserName(friendsArray.getJSONObject(i).get("name").toString());
 
-                        item.setUserName(friendsArray.getJSONObject(i).get(
-                                "name")
-                                + "");
                         JSONObject picObject = new JSONObject(friendsArray
-                                .getJSONObject(i).get("picture") + "");
-                        String picURL = (String) (new JSONObject(picObject
-                                .get("data").toString())).get("url");
+                                .getJSONObject(i).get("picture").toString());
+                        String picURL = (new JSONObject(picObject
+                                .get("data").toString())).get("url").toString();
                         item.setPictureURL(picURL);
                         friendsList.add(item);
 
@@ -143,8 +143,26 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     private void loadFriendsList() {
-        listView = findViewById(R.id.ListViewItems);
+        listView = findViewById(R.id.ListViewFriends);
         FriendsAdapter adapter = new FriendsAdapter(this, friendsList);
         listView.setAdapter(adapter);
+
+        clickcallback();
+    }
+
+    private void clickcallback() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
+                Context context = getBaseContext();
+                Intent intent = new Intent(context, CollectionsActivity.class);
+
+                FriendItem friend = (FriendItem) parent.getItemAtPosition(position);
+                intent.putExtra("FriendID", (String) friend.getUserId());
+                intent.putExtra("FriendName", (String) friend.getUserName());
+
+                context.startActivity(intent);
+            }
+        });
     }
 }

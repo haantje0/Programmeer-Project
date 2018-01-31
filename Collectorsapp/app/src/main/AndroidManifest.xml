@@ -77,7 +77,7 @@
         <activity
             android:name=".FriendsActivity"
             android:label="@string/title_activity_friends"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

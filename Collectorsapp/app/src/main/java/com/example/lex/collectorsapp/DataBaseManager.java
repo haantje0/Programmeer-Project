@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,14 +37,21 @@ import java.util.HashMap;
 
 class DatabaseManager {
 
-    private FirebaseAuth mAuth;
-
     private DatabaseReference mDatabase;
+
+    private String facebookID;
 
     // set database instance
     public void setDatabase() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mAuth = FirebaseAuth.getInstance();
+
+        facebookID = AccessToken.getCurrentAccessToken().getUserId();
+    }
+
+    public void setFriendDatabase(String facebookID) {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        this.facebookID = facebookID;
     }
 
     public void getCollectionsFromDB(final Context context, final ListView listView) {
@@ -54,7 +62,7 @@ class DatabaseManager {
                 ArrayList<String> collections = new ArrayList<String>();
 
                 // get the right data and store it in the arraylist
-                for (DataSnapshot collection : dataSnapshot.child(mAuth.getUid()).getChildren()) {
+                for (DataSnapshot collection : dataSnapshot.child(facebookID).getChildren()) {
                         collections.add(collection.getKey());
                 }
 
@@ -85,8 +93,7 @@ class DatabaseManager {
                 ArrayList<Specs> specsList = new ArrayList<Specs>();
 
                 // get the right data and store it
-                String test = mAuth.getUid();
-                for (DataSnapshot item : dataSnapshot.child(mAuth.getUid()).child(Collection).child(Collection).getChildren()){
+                for (DataSnapshot item : dataSnapshot.child(facebookID).child(Collection).child(Collection).getChildren()){
                         specsList.add(item.getValue(Specs.class));
                 }
 
@@ -109,11 +116,14 @@ class DatabaseManager {
         mDatabase.addValueEventListener(postListener);
     }
 
-    public void getExtraSpecsFromDB(final Context context, final LinearLayout linearLayout, final String collection) {
+    public void getExtraSpecsFromDB(final Context context,
+                                    final LinearLayout linearLayout, final String collection) {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
+            // TODO number
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot spec : dataSnapshot.child(mAuth.getUid()).child(collection).child(collection + "Specs").getChildren()) {
+                for (DataSnapshot spec : dataSnapshot.child(facebookID).child(collection)
+                        .child(collection + "Specs").getChildren()) {
                     LayoutInflater layoutInflater =
                             (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     final View addView = layoutInflater.inflate(R.layout.spec_textinput, null);
@@ -121,7 +131,7 @@ class DatabaseManager {
                     TextInputLayout textInputLayout = addView.findViewById(R.id.textInputLayoutAddItem);
                     EditText editText = addView.findViewById(R.id.editTextSpec);
                     textInputLayout.setHint(spec.getKey());
-                    if (spec.getValue().toString() == "Number") {
+                    if (spec.getValue().equals("Number")) {
                         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                     }
 
@@ -132,12 +142,12 @@ class DatabaseManager {
             public void onCancelled(DatabaseError databaseError) {
 
             }};
-        mDatabase.addValueEventListener(postListener);
+        mDatabase.addListenerForSingleValueEvent(postListener);
     }
 
     public void addCollectionToDB(Context context, String title, HashMap<String, String> extraSpecs) {
-        mDatabase.child(mAuth.getUid()).child(title).child(title + "Specs").setValue(extraSpecs);
-        mDatabase.child(mAuth.getUid()).child(title).child(title).setValue(title);
+        mDatabase.child(facebookID).child(title).child(title + "Specs").setValue(extraSpecs);
+        mDatabase.child(facebookID).child(title).child(title).setValue(title);
 
         // go back to collections
         Intent intent = new Intent(context, CollectionsActivity.class);
@@ -147,21 +157,21 @@ class DatabaseManager {
 
     // add values to the database
     public void addItemToDB(Context context, Specs specs, String collection) {
-        mDatabase.child(mAuth.getUid()).child(collection).child(collection).child(specs.getName()).setValue(specs);
+        mDatabase.child(facebookID).child(collection).child(collection).child(specs.getName()).setValue(specs);
 
         // go back to the collection
         Intent intent = new Intent(context, CollectionViewActivity.class);
-        intent.putExtra("Collection", (String) collection);
+        intent.putExtra("Collection", collection);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
 
     public void deleteCollectionFromDB(String collection) {
-        mDatabase.child(mAuth.getUid()).child(collection).removeValue();
+        mDatabase.child(facebookID).child(collection).removeValue();
     }
 
     public void deleteItemFromDB(String collection, String item) {
-        mDatabase.child(mAuth.getUid()).child(collection).child(collection).child(item).removeValue();
+        mDatabase.child(facebookID).child(collection).child(collection).child(item).removeValue();
     }
 }
 

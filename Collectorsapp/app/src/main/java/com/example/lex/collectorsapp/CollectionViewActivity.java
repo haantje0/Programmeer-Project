@@ -32,22 +32,18 @@ public class CollectionViewActivity extends AppCompatActivity {
     List<Specs> items = new ArrayList<Specs>();
 
     String collection;
+    String friendID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection_view);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Collection");
-        setSupportActionBar(toolbar);
-
-        dbManager.setDatabase();
 
         Intent intent = getIntent();
+        friendID = intent.getStringExtra("FriendID");
         collection = intent.getStringExtra("Collection");
 
-        toolbar.setTitle(collection);
-        setSupportActionBar(toolbar);
+        setDatabase();
 
         ListView listView = (ListView) findViewById(R.id.ListViewItems);
         dbManager.getItemsFromDB(this, listView, collection);
@@ -58,8 +54,14 @@ public class CollectionViewActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        if (friendID == null) {
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+            return true;
+        }
+        else {
+            getMenuInflater().inflate(R.menu.menu_friends, menu);
+            return true;
+        }
     }
 
     @Override
@@ -69,7 +71,7 @@ public class CollectionViewActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        // noinspection SimplifiableIfStatement
         if (id == R.id.friends) {
             Intent intent = new Intent(this, FriendsActivity.class);
             this.startActivity(intent);
@@ -80,8 +82,30 @@ public class CollectionViewActivity extends AppCompatActivity {
             this.startActivity(intent);
             return true;
         }
+        else if (id == R.id.home) {
+            Intent intent = new Intent(this, CollectionsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            this.startActivity(intent);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setDatabase() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(collection);
+        setSupportActionBar(toolbar);
+
+        if (friendID == null) {
+            dbManager.setDatabase();
+        }
+        else {
+            FloatingActionButton fab = findViewById(R.id.fab);
+            fab.setVisibility(View.GONE);
+
+            dbManager.setFriendDatabase(friendID);
+        }
     }
 
     private void clickcallback() {
@@ -102,7 +126,6 @@ public class CollectionViewActivity extends AppCompatActivity {
                 context.startActivity(intent);
             }
         });
-        // TODO zorgen dat het klikken meteen werkt
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View viewClicked, int position, long id) {
@@ -110,7 +133,7 @@ public class CollectionViewActivity extends AppCompatActivity {
                 final Specs specs = (Specs) parent.getItemAtPosition(position);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(CollectionViewActivity.this);
-                builder.setMessage("delete this item?");
+                builder.setMessage("Delete this item?");
 
                 builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -129,7 +152,7 @@ public class CollectionViewActivity extends AppCompatActivity {
                 return true;
             }
         });
-    };
+    }
 
     public void AddItem(View view) {
         Intent intent = new Intent(this, AddItemActivity.class);

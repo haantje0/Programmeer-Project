@@ -1,21 +1,13 @@
 package com.example.lex.collectorsapp;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AlertDialogLayout;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -23,30 +15,23 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-
-import static com.example.lex.collectorsapp.R.id.container;
 
 public class AddCollectionActivity extends AppCompatActivity {
     
     DatabaseManager dbManager = new DatabaseManager();
 
     EditText editTextTitle;
-
     String title;
 
     HashMap<String, String> extraSpecs = new HashMap<>();
-
     Boolean empty = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_collection);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
@@ -73,26 +58,10 @@ public class AddCollectionActivity extends AppCompatActivity {
                 RadioButton radioButton = radioGroup.findViewById(radioButtonID);
                 String variable = " (" + radioButton.getText().toString() + ")";
 
-                // put new spec in view
-                LinearLayout linearLayout = (LinearLayout) findViewById(R.id.LinearLayoutExtraSpecs);
-
-                LayoutInflater layoutInflater =
-                        (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                final View addView = layoutInflater.inflate(R.layout.spec_row, null);
-                TextView specName = (TextView)addView.findViewById(R.id.textout);
-                specName.setText(newSpec);
-                TextView specVar = (TextView)addView.findViewById(R.id.vartype);
-                specVar.setText(variable);
-                TextView buttonRemove = (TextView) addView.findViewById(R.id.remove);
-                buttonRemove.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-                        ((LinearLayout)addView.getParent()).removeView(addView);
-                    }});
-
-                linearLayout.addView(addView);
+                addExtraSpecToView(newSpec, variable);
             }
         });
+
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
 
@@ -101,12 +70,52 @@ public class AddCollectionActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
 
+    public void addExtraSpecToView(String newSpec, String variable) {
+        LinearLayout linearLayout = findViewById(R.id.LinearLayoutExtraSpecs);
+        LayoutInflater layoutInflater =
+                (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-    };
+        final View addView = layoutInflater.inflate(R.layout.spec_row, null);
+
+        TextView specName = addView.findViewById(R.id.textout);
+        specName.setText(newSpec);
+
+        TextView specVar = addView.findViewById(R.id.vartype);
+        specVar.setText(variable);
+
+        TextView buttonRemove = addView.findViewById(R.id.remove);
+        buttonRemove.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                ((LinearLayout)addView.getParent()).removeView(addView);
+            }});
+
+        linearLayout.addView(addView);
+    }
+
+    public void SaveCollection(View view) {
+        setTitle();
+        setExtraSpecs();
+
+        if (title.length() == 0) {
+            Toast.makeText(AddCollectionActivity.this, "Give this collection a title!",
+                    Toast.LENGTH_SHORT).show();
+        }
+        else {
+            if (!empty) {
+                dbManager.addCollectionToDB(AddCollectionActivity.this, title, extraSpecs);
+            }
+            else {
+                Toast.makeText(AddCollectionActivity.this, "Delete your empty specifications!",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
     public void setTitle() {
-        editTextTitle = (EditText) findViewById(R.id.editTextTitle);
+        editTextTitle = findViewById(R.id.editTextTitle);
         title = editTextTitle.getText().toString();
     }
 
@@ -116,8 +125,8 @@ public class AddCollectionActivity extends AppCompatActivity {
         empty = false;
 
         for (int i = 0; i < linearLayout.getChildCount(); i++) {
-            if (linearLayout.getChildAt(i) instanceof View) {
-                View view = (View) linearLayout.getChildAt(i);
+            if (linearLayout.getChildAt(i) != null) {
+                View view = linearLayout.getChildAt(i);
 
                 TextView textViewSpec = view.findViewById(R.id.textout);
                 TextView textViewVar = view.findViewById(R.id.vartype);
@@ -130,25 +139,6 @@ public class AddCollectionActivity extends AppCompatActivity {
                 }
 
                 extraSpecs.put(extraSpec, var.substring(2, var.length() - 1));
-            }
-        }
-    }
-
-    public void SaveCollection(View view) {
-        setTitle();
-        setExtraSpecs();
-
-        if (title.length() == 0) {
-            Toast.makeText(AddCollectionActivity.this, "Give this collection a title!",
-                    Toast.LENGTH_SHORT).show();
-        }
-        else {
-            if (empty == false) {
-                dbManager.addCollectionToDB(AddCollectionActivity.this, title, extraSpecs);
-            }
-            else {
-                Toast.makeText(AddCollectionActivity.this, "Delete your empty specifications!",
-                        Toast.LENGTH_SHORT).show();
             }
         }
     }
