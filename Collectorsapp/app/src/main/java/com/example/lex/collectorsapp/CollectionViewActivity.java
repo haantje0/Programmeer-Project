@@ -15,13 +15,26 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 /**
- * Created by lex on 1/16/2018.
+ * Created by Lex de Haan on 1/16/2018.
+ *
+ * This activity shows the items in the given collection.
+ *
+ * When an item is clicked, it will bring you to that item. When an item is longclicked, it will
+ * ask the user if he wats to delete the item or not via a alert dialog.
+ *
+ * There is a floating action button with a plus sign. When this is clicked, it will bring the user
+ * to the AddItemActivity.
+ *
+ * When this activity is opened for a friends collection, it will show the items of that collection.
+ * This will also create a different toolbar and this will make the add button disappear.
  */
 
 public class CollectionViewActivity extends AppCompatActivity {
 
+    // make the database
     DatabaseManager dbManager = new DatabaseManager();
 
+    // make collection variables
     String collection;
     String friendID;
 
@@ -30,21 +43,47 @@ public class CollectionViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection_view);
 
+        // get information of which collection you are viewing
         Intent intent = getIntent();
         friendID = intent.getStringExtra("FriendID");
         collection = intent.getStringExtra("Collection");
 
+        // set the database
         setDatabase();
 
+        // put the items in the listview
         ListView listView = findViewById(R.id.ListViewItems);
         dbManager.getItemsFromDB(this, listView, collection);
 
+        // make onclick listeners for the listview
         clickcallback();
     }
 
+    private void setDatabase() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(collection);
+        setSupportActionBar(toolbar);
+
+        // check which database has to be displayed
+        if (friendID == null) {
+            dbManager.setDatabase();
+        }
+        else {
+            // hide the add button when you are viewing a friends collection
+            FloatingActionButton fab = findViewById(R.id.fab);
+            fab.setVisibility(View.GONE);
+
+            dbManager.setFriendDatabase(friendID);
+        }
+    }
+
+    /**
+     * The following functions create the toolbar and sets its functionality.
+     */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the right menu
         if (friendID == null) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
             return true;
@@ -57,12 +96,9 @@ public class CollectionViewActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        // noinspection SimplifiableIfStatement
+        // set listeners to the different buttons
         if (id == R.id.friends) {
             Intent intent = new Intent(this, FriendsActivity.class);
             this.startActivity(intent);
@@ -83,29 +119,26 @@ public class CollectionViewActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setDatabase() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(collection);
-        setSupportActionBar(toolbar);
+    /**
+     * The following functions register onclick callbacks for the listview and the add button
+     */
 
-        if (friendID == null) {
-            dbManager.setDatabase();
-        }
-        else {
-            FloatingActionButton fab = findViewById(R.id.fab);
-            fab.setVisibility(View.GONE);
-
-            dbManager.setFriendDatabase(friendID);
-        }
-    }
-
+    // add onclick listeners to the listview items
     private void clickcallback() {
         final ListView listView = findViewById(R.id.ListViewItems);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        listView.setOnItemClickListener(ClickListener());
+        listView.setOnItemLongClickListener(LongClickListener());
+    }
+
+    // set listview click listener
+    public AdapterView.OnItemClickListener ClickListener() {
+        return new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
                 Context context = getBaseContext();
 
+                // go to the clicked item
                 Intent intent = new Intent(context, ItemViewActivity.class);
 
                 Specs specs = (Specs) parent.getItemAtPosition(position);
@@ -116,18 +149,23 @@ public class CollectionViewActivity extends AppCompatActivity {
 
                 context.startActivity(intent);
             }
-        });
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        };
+    }
+
+    // set listview longclick listener
+    public AdapterView.OnItemLongClickListener LongClickListener() {
+        return  new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-
                 final Specs specs = (Specs) parent.getItemAtPosition(position);
 
+                // make an alert dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(CollectionViewActivity.this);
                 builder.setMessage("Delete this item?");
 
-                builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        // delete the item
                         dbManager.deleteItemFromDB(collection, specs.getName());
                     }
                 });
@@ -142,9 +180,10 @@ public class CollectionViewActivity extends AppCompatActivity {
 
                 return true;
             }
-        });
+        };
     }
 
+    // onclick listener for the add item button
     public void AddItem(View view) {
         Intent intent = new Intent(this, AddItemActivity.class);
         intent.putExtra("Collection", collection);

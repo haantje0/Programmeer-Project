@@ -17,17 +17,25 @@ import java.net.URL;
 import java.util.ArrayList;
 
 /**
- * Created by lex on 28/01/2018.
+ * Created by Lex de Haan on 28/01/2018.
+ *
+ * This class puts the Facebook friends into a listview.
+ *
+ * The profile picture is downloaded asynchronous.
  */
 
 public class FriendsAdapter extends ArrayAdapter<FriendItem> {
+
+    // constructor
     FriendsAdapter(Context context, ArrayList<FriendItem> friendList) {
         super(context, R.layout.itemslayout, (ArrayList<FriendItem>) friendList);
     }
 
+    // inflate the data into the listview
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        // get the layout inflater
         LayoutInflater theInflater = LayoutInflater.from(getContext());
         View theView = theInflater.inflate(R.layout.friendslayout, parent, false);
 
@@ -41,6 +49,7 @@ public class FriendsAdapter extends ArrayAdapter<FriendItem> {
         ImageView mImageView = (ImageView) theView.findViewById(R.id.imageViewFriend);
 
         if (pictureURL != null) {
+            // download the picture
             mImageView.setTag(pictureURL);
             new DownloadImageTask().execute(mImageView);
         }
@@ -51,6 +60,7 @@ public class FriendsAdapter extends ArrayAdapter<FriendItem> {
         return theView;
     }
 
+    // download the image asynchronous
     public class DownloadImageTask extends AsyncTask<ImageView, Void, Bitmap> {
 
         ImageView imageView = null;

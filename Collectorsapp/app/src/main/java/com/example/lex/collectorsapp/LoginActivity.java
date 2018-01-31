@@ -27,17 +27,36 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
- * Created by lex on 1/16/2018.
+ * Created by Lex de Haan on 1/16/2018.
+ *
+ * This Activity is the MainActivity.
+ *
+ * The user can log in via Facebook. There is a standard Facebook button which is used to log in
+ * and log out.
+ *
+ * When someone is logged in, there will be a welcomes text and a button to continue with the
+ * current in user.
+ *
+ * When there is no-one logged in, you can only go further by loggin in to Facebook.
+ *
+ * When the user uses the logout button from the toolbar, it returns to this activity and the user can
+ * log out.
+ *
+ * After leaving this activity, it is removed from the back stash. You can only return by pressing
+ * the back button from the toolbar.
  */
 
 public class LoginActivity extends AppCompatActivity {
 
     static final String TAG = "loginactivity";
 
+    // create a callback manager
     CallbackManager callbackManager = CallbackManager.Factory.create();
 
+    // make the Firebase authorisation
     private FirebaseAuth mAuth;
 
+    // make some views
     Button continueAsButton;
     TextView welcomeTextView;
 
@@ -46,29 +65,34 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // set the views
         continueAsButton = findViewById(R.id.ContinueAsButton);
         welcomeTextView = findViewById(R.id.TextViewWelcome);
 
+        // set Firebase authorisation
         mAuth = FirebaseAuth.getInstance();
 
-        InitializeFacebookManager();
+        // initialize Facebook button
         InitializeFacebookButton();
 
+        // set the continue button
         setButton();
     }
 
-    public void ContinueAs(View view) {
-        Intent intent = new Intent(this, CollectionsActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        this.startActivity(intent);
-    }
+    /**
+     * The following functions set the Facebook button and they also handle all the interaction with
+     * the Facebook API.
+     *
+     * When you are logged in via Facebook, it also sets the Firebase authorisation.
+     */
 
+    // initialize Facebook Login button
     public void InitializeFacebookButton() {
-        // Initialize Facebook Login button
         LoginButton loginButton = findViewById(R.id.login_button);
         loginButton.setReadPermissions("email", "public_profile", "user_friends");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 
+            // register the result
             @Override
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken());
@@ -85,40 +109,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
-                                                       AccessToken currentAccessToken) {
-                if (currentAccessToken == null) {
-                    setButton();
-                }
-            }
-        };
-    }
-
-    public void InitializeFacebookManager() {
-        LoginButton loginButton = findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email", "public_profile");
-
-        LoginManager.getInstance().registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        final AccessToken accessToken = loginResult.getAccessToken();
-                        handleFacebookAccessToken(accessToken);
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        Log.d(TAG, "cancelled");
-                    }
-
-                    @Override
-                    public void onError(FacebookException exception) {
-                        // App code
-                        Log.d(TAG, exception.toString());
-                    }
-                });
+        // track the accestoken to see when someone logged out
+        setAccesTokenTracker();
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
@@ -129,17 +121,15 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                            // when sign in is succesfull, go to the next activity
                             Intent intent = new Intent(LoginActivity.this, CollectionsActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             LoginActivity.this.startActivity(intent);
                         } else {
-                            // If sign in fails, display a message to the user.
+                            // if sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-
-                        // ...
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
@@ -150,7 +140,33 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    public void setAccesTokenTracker() {
+        AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
+                                                       AccessToken currentAccessToken) {
+                if (currentAccessToken == null) {
+                    // change the view wen you are logged in or out
+                    setButton();
+                }
+            }
+        };
+    }
+
+    // when Facebook returns its result it is handled here
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * The following functions set the continue button
+     */
+
+    // set visibility of the continue button and the welcome text
     private void setButton() {
+        // check if there is someone logged in
         if (AccessToken.getCurrentAccessToken() == null) {
             LoginManager.getInstance().logOut();
             mAuth.signOut();
@@ -163,9 +179,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+    // onclick listener for the continue button
+    public void ContinueAs(View view) {
+        Intent intent = new Intent(this, CollectionsActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        this.startActivity(intent);
     }
 }

@@ -24,10 +24,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * Created by lex on 1/16/2018.
+ * Created by Lex de Haan on 1/16/2018.
+ * TODO all commments
+ *
+ * TODO get friendslist from facebook from: https://github.com/sallySalem/Facebook-Friends-list
  */
 
-// get friendslist from facebook from: https://github.com/sallySalem/Facebook-Friends-list
 
 public class FriendsActivity extends AppCompatActivity {
 
@@ -60,17 +62,18 @@ public class FriendsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.home) {
+        if (id == R.id.logout) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            this.startActivity(intent);
+            return true;
+        }
+        else if (id == R.id.home) {
             Intent intent = new Intent(this, CollectionsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             this.startActivity(intent);
             return true;
         }
-        else if (id == R.id.logout) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            this.startActivity(intent);
-            return true;
-        }
+
 
         return super.onOptionsItemSelected(item);
     }

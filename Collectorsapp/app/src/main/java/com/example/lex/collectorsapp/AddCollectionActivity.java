@@ -18,7 +18,16 @@ import android.widget.Toast;
 import java.util.HashMap;
 
 /**
- * Created by lex on 1/16/2018.
+ * Created by Lex de Haan on 1/16/2018.
+ *
+ * This activity lets the user add new collections. The title of the collection and extra
+ * specifications can be added to the database.
+ *
+ * When a user wants to add extra specifications, an alert dialog will open and the user can chose
+ * the name of the specification and the input type (text or number)
+ *
+ * Once the save button is clicked, the name of the collection and the chosen specifications will
+ * be saved in the database.
  */
 
 public class AddCollectionActivity extends AppCompatActivity {
@@ -54,6 +63,7 @@ public class AddCollectionActivity extends AppCompatActivity {
      * The information from the dialog will be saved within the view.
      */
 
+    // onclick listener for the add button
     public void AddSpecs(View view) {
 
         // build the alert dialog
@@ -89,6 +99,7 @@ public class AddCollectionActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    // put the extra specs in the view
     public void addExtraSpecToView(String newSpec, String variable) {
         // set the views
         LinearLayout linearLayout = findViewById(R.id.LinearLayoutExtraSpecs);
@@ -118,6 +129,7 @@ public class AddCollectionActivity extends AppCompatActivity {
      * The title and extra specs are extracted and saved in the database.
      */
 
+    // onclick listener for the save button
     public void SaveCollection(View view) {
         setTitle();
         setExtraSpecs();
@@ -154,15 +166,15 @@ public class AddCollectionActivity extends AppCompatActivity {
             if (linearLayout.getChildAt(i) != null) {
                 View view = linearLayout.getChildAt(i);
 
-                // set the textviews
+                // set the textview
                 TextView textViewSpec = view.findViewById(R.id.textout);
                 TextView textViewVar = view.findViewById(R.id.vartype);
 
-                // extract the values
+                // extract the value
                 String extraSpec = textViewSpec.getText().toString();
                 String var = textViewVar.getText().toString();
 
-                // make sure the specifications have names
+                // make sure the specification has a name
                 if (extraSpec.length() == 0) {
                     empty = true;
                 }
