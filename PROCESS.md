@@ -45,3 +45,9 @@
 ## day 1
 - I changed the authentication mechanism and changed its back navigation.
 - The authentication is now working a lot better and the app finally realy sees who is loged in. I needed this to finish the view for the collections of friends.
+
+## day 2
+- Finshed the view of friends collections. I had to change the database from starting with the firebase ID to starting with the Facebook ID. In that way you can easily view friends collections in the normal collection activitys.
+
+## day 3
+- Worked trough all the TODO's that came out of the code review and fixed some bugs.
