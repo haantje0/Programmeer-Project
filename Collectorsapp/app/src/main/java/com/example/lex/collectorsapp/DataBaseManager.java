@@ -191,11 +191,11 @@ class DatabaseManager {
      * The following functions delete information from the database.
      */
 
-    public void deleteCollectionFromDB(String collection) {
+    void deleteCollectionFromDB(String collection) {
         mDatabase.child(facebookID).child(collection).removeValue();
     }
 
-    public void deleteItemFromDB(String collection, String item) {
+    void deleteItemFromDB(String collection, String item) {
         mDatabase.child(facebookID).child(collection).child(collection).child(item).removeValue();
     }
 }

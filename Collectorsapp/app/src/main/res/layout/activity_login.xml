@@ -28,7 +28,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
         android:onClick="ContinueAs"
-        android:text="Continue" />
+        android:text="@string/Continue" />
 
     <TextView
         android:id="@+id/TextViewWelcome"
@@ -38,6 +38,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:gravity="center"
-        android:text="Welcome"
+        android:text="@string/welcome"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 </RelativeLayout>

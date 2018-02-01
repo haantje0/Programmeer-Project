@@ -7,7 +7,7 @@
         android:id="@+id/remove"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:text="X"
+        android:text="@string/x"
         android:gravity="center"
         android:textColor="#FF0000"
         android:layout_width="50dp" />

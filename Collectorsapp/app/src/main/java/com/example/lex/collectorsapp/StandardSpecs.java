@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * Created by Lex de Haan on 1/11/2018.
  *
- * This class saves information from an item in a collection.
+ * This class contains information from an item in a collection.
  *
  * It uses hashmaps to store the extra specifications (key: name, value: input type).
  */

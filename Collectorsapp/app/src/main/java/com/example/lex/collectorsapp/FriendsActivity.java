@@ -25,11 +25,9 @@ import java.util.ArrayList;
 
 /**
  * Created by Lex de Haan on 1/16/2018.
- * TODO all commments
  *
- * TODO get friendslist from facebook from: https://github.com/sallySalem/Facebook-Friends-list
+ * TODO all commments
  */
-
 
 public class FriendsActivity extends AppCompatActivity {
 

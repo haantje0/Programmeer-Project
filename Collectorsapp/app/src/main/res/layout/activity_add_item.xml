@@ -43,7 +43,7 @@
                     android:id="@+id/imageViewAddPhoto"
                     android:layout_weight="0.81"
                     android:layout_height="wrap_content"
-                    android:onClick="AddPhoto" />
+                    android:onClick="AddPhoto" android:contentDescription="@string/todo" />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                         android:id="@+id/editTextName"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Name"
+                        android:hint="@string/name"
                         android:inputType="textCapSentences"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -63,7 +63,7 @@
                         android:id="@+id/editTextDescription"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Description"
+                        android:hint="@string/description"
                         android:inputType="textCapSentences"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -72,16 +72,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.81"
-                    android:orientation="vertical"></LinearLayout>
+                    android:orientation="vertical" />
 
                 <Button
-                    android:text="Save"
+                    android:text="@string/save"
                     android:drawableLeft="@drawable/ic_save_black_24dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/SpecSaveButton"
                     android:onClick="SaveItemSpecs"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" android:drawableStart="@drawable/ic_save_black_24dp" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

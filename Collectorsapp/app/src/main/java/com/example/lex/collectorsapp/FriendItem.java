@@ -3,7 +3,7 @@ package com.example.lex.collectorsapp;
 /**
  * Created by Lex de Haan on 28/01/2018.
  *
- * This class saves information from a Facebook friend.
+ * This class contains information from a Facebook friend.
  */
 
 class FriendItem {

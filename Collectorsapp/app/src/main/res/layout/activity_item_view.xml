@@ -31,41 +31,41 @@
         android:weightSum="1">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.03"
+            android:orientation="horizontal"
             tools:ignore="InefficientWeight">
 
             <ImageView
                 android:id="@+id/imageViewItemView"
-                android:layout_height="200dp"
                 android:layout_width="200dp"
-                android:contentDescription="" />
+                android:layout_height="200dp"
+                android:contentDescription="TODO" />
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:orientation="vertical"
                 tools:ignore="NestedWeights">
 
                 <TextView
-                    android:text="Name"
+                    android:id="@+id/textViewName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textViewName"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:layout_weight="1"
+                    android:text="@string/name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     tools:ignore="NestedWeights" />
 
                 <TextView
-                    android:text="Description: "
+                    android:id="@+id/textViewDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textViewDescription"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="@string/Description"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle" />
             </LinearLayout>
 
         </LinearLayout>

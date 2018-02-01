@@ -11,7 +11,7 @@
             android:id="@+id/editTextNewSpec"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
+            android:hint="@string/name"
             android:textAppearance="@style/TextAppearance.AppCompat.Display2"
             android:inputType="textCapSentences"/>
 
@@ -23,7 +23,7 @@
         android:id="@+id/RadioGroup">
 
         <RadioButton
-            android:text="Text"
+            android:text="@string/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/RadioString"
@@ -31,7 +31,7 @@
             android:checked="true"/>
 
         <RadioButton
-            android:text="Number"
+            android:text="@string/number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/RadioInt"
