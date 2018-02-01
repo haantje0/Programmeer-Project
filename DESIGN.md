@@ -3,7 +3,7 @@ This document gives a description of what the app will look like and how the pro
 
 Advanced sketches
 -----------------
-![alt text](https://github.com/haantje0/Programmeer-Project/blob/master/sketch%20design%20document%201.2.png)
+![alt text](https://github.com/haantje0/Programmeer-Project/blob/master/doc/sketch%20design%20document%201.2.png)
 
 1.	Login screen. Here you can login on facebook. You have to log in, in order to access the app.
 2.	Collections overview. Here you can see your collections. These collections are loaded from firebase. You can go to the menu (3), add a new collection (5) or see a collection (6).

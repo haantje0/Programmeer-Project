@@ -11,7 +11,7 @@ Solution
 --------
 This app will provide an easy way to administrate and share your own collection in an android app.
 
-![alt text](https://github.com/haantje0/Programmeer-Project/blob/master/app%20sketch.png)
+![alt text](https://github.com/haantje0/Programmeer-Project/blob/master/doc/app%20sketch.png)
 
 
 In the sketches you can see different screens for the app. 
