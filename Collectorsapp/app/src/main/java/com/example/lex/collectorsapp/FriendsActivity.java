@@ -26,13 +26,15 @@ import java.util.ArrayList;
 /**
  * Created by Lex de Haan on 1/16/2018.
  *
- * TODO all commments
+ * This activity displays the Facebook friends that also use the app.
  */
 
 public class FriendsActivity extends AppCompatActivity {
 
+    // make the database
     DatabaseManager dbManager = new DatabaseManager();
 
+    // make friends variables
     private ArrayList<FriendItem> friendsList = new ArrayList<>();
     private ListView listView;
 
@@ -40,13 +42,21 @@ public class FriendsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
+
+        // set the toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // set the database manager
         dbManager.setDatabase();
 
+        // set the friends
         setFriendsList();
     }
+
+    /**
+     * The following functions create the toolbar and sets its functionality.
+     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,6 +70,7 @@ public class FriendsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        // set listeners to the different buttons
         if (id == R.id.logout) {
             Intent intent = new Intent(this, LoginActivity.class);
             this.startActivity(intent);
@@ -72,16 +83,18 @@ public class FriendsActivity extends AppCompatActivity {
             return true;
         }
 
-
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * The following functions create friendlist and display it.
+     */
 
     private void setFriendsList() {
         //fbToken return from login with facebook
         AccessToken fbToken = AccessToken.getCurrentAccessToken();
         GraphRequestAsyncTask r = GraphRequest.newGraphPathRequest(fbToken,
                 "/me/friends", new GraphRequest.Callback() {
-                    // TODO profile picture
                     @Override
                     public void onCompleted(GraphResponse response) {
                         parseResponse(response.getJSONObject());
@@ -90,19 +103,20 @@ public class FriendsActivity extends AppCompatActivity {
         ).executeAsync();
     }
 
+    // get the correct data from the JSON object
     private void parseResponse(JSONObject friends ) {
-
         try {
             JSONArray friendsArray = (JSONArray) friends.get("data");
             if (friendsArray != null) {
                 for (int i = 0; i < friendsArray.length(); i++) {
                     FriendItem item = new FriendItem();
                     try {
-                        // TODO profile picture
+                        // get the name and id
                         String userID = friendsArray.getJSONObject(i).get("id").toString();
                         item.setUserId(userID);
                         item.setUserName(friendsArray.getJSONObject(i).get("name").toString());
 
+                        // get the photo
                         JSONObject picObject = new JSONObject(friendsArray
                                 .getJSONObject(i).get("picture").toString());
                         String picURL = (new JSONObject(picObject
@@ -130,6 +144,7 @@ public class FriendsActivity extends AppCompatActivity {
         }
     }
 
+    // put the friends list in a view
     private void loadFriendsList() {
         listView = findViewById(R.id.ListViewFriends);
         FriendsAdapter adapter = new FriendsAdapter(this, friendsList);
@@ -138,6 +153,7 @@ public class FriendsActivity extends AppCompatActivity {
         clickcallback();
     }
 
+    // set onclick listener for the friends listview
     private void clickcallback() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

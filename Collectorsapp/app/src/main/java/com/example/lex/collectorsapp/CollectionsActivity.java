@@ -18,16 +18,6 @@ import android.widget.ListView;
  * Created by Lex de Haan on 1/16/2018.
  *
  * This activity shows the collections that a user has. This activity is the home page for a user.
- * It will show its own collections.
- *
- * When a collection is clicked, it will bring you to that collection. When a collection is
- * longclicked, it will ask the user if he wats to delete the collection or not via a alert dialog.
- *
- * There is a floating action button with a plus sign. When this is clicked, it will bring the user
- * to the AddCollectionActivity.
- *
- * When this activity is opened from the FriendsActivity, it will show the collections of the chosen
- * friend. This will also create a different toolbar and this will make the add button disappear.
  */
 
 public class CollectionsActivity extends AppCompatActivity {
@@ -133,7 +123,10 @@ public class CollectionsActivity extends AppCompatActivity {
         final ListView listView = findViewById(R.id.listViewCollections);
 
         listView.setOnItemClickListener(ClickListener());
-        listView.setOnItemLongClickListener(LongClickListener());
+
+        if (friendID == null) {
+            listView.setOnItemLongClickListener(LongClickListener());
+        }
     }
 
     // set listview click listener

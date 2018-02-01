@@ -22,9 +22,6 @@ import java.util.Set;
  * Created by Lex de Haan on 1/16/2018.
  *
  * This activity shows the given item and its specifications.
- *
- * All the information displayed in this Activity was already taken from the database in the
- * previous activity. This activity only displays it.
  */
 
 public class ItemViewActivity extends AppCompatActivity {

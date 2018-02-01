@@ -22,12 +22,6 @@ import java.util.HashMap;
  *
  * This activity lets the user add new collections. The title of the collection and extra
  * specifications can be added to the database.
- *
- * When a user wants to add extra specifications, an alert dialog will open and the user can chose
- * the name of the specification and the input type (text or number)
- *
- * Once the save button is clicked, the name of the collection and the chosen specifications will
- * be saved in the database.
  */
 
 public class AddCollectionActivity extends AppCompatActivity {

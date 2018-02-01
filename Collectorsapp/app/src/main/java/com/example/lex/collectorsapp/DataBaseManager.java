@@ -29,14 +29,6 @@ import java.util.HashMap;
  * Created by Lex de Haan on 1/16/2018.
  *
  * This Helper class handles all calls with the Firebase database.
- *
- * It takes information from the database and stores information to it.
- *
- * When information is asked from the database, this helper will also put the information in the
- * right view.
- *
- * Before using the helper it always has to be initialized via a constructor. This will make sure
- * that the right collections are taken when you try to view the collections of a friend.
  */
 
 class DatabaseManager {

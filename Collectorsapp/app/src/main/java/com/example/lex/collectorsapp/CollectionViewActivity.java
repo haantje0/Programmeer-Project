@@ -17,16 +17,7 @@ import android.widget.ListView;
 /**
  * Created by Lex de Haan on 1/16/2018.
  *
- * This activity shows the items in the given collection.
- *
- * When an item is clicked, it will bring you to that item. When an item is longclicked, it will
- * ask the user if he wats to delete the item or not via a alert dialog.
- *
- * There is a floating action button with a plus sign. When this is clicked, it will bring the user
- * to the AddItemActivity.
- *
- * When this activity is opened for a friends collection, it will show the items of that collection.
- * This will also create a different toolbar and this will make the add button disappear.
+ * This activity shows the items in the clicked collection (title, description and image).
  */
 
 public class CollectionViewActivity extends AppCompatActivity {
@@ -128,7 +119,10 @@ public class CollectionViewActivity extends AppCompatActivity {
         final ListView listView = findViewById(R.id.ListViewItems);
 
         listView.setOnItemClickListener(ClickListener());
-        listView.setOnItemLongClickListener(LongClickListener());
+
+        if (friendID == null) {
+            listView.setOnItemLongClickListener(LongClickListener());
+        }
     }
 
     // set listview click listener

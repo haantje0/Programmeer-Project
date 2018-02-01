@@ -29,21 +29,7 @@ import com.google.firebase.auth.FirebaseAuth;
 /**
  * Created by Lex de Haan on 1/16/2018.
  *
- * This Activity is the MainActivity.
- *
- * The user can log in via Facebook. There is a standard Facebook button which is used to log in
- * and log out.
- *
- * When someone is logged in, there will be a welcomes text and a button to continue with the
- * current in user.
- *
- * When there is no-one logged in, you can only go further by loggin in to Facebook.
- *
- * When the user uses the logout button from the toolbar, it returns to this activity and the user can
- * log out.
- *
- * After leaving this activity, it is removed from the back stash. You can only return by pressing
- * the back button from the toolbar.
+ * This Activity is the MainActivity. The user can log in via Facebook and go to his collections.
  */
 
 public class LoginActivity extends AppCompatActivity {
