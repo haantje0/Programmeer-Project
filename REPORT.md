@@ -2,6 +2,7 @@
 -----
 ## Application description
 This app is made for collectors of all sorts. It provides an easy way to administrate your collections and share them via Facebook.
+
 <img src="https://github.com/haantje0/Programmeer-Project/blob/master/doc/app%20sketch%203.jpeg" width="200"/>
 
 ## Technical design
