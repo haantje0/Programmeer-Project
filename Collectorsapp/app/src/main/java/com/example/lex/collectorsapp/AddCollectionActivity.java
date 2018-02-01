@@ -72,17 +72,7 @@ public class AddCollectionActivity extends AppCompatActivity {
         // set the response buttons from the allert dialog
         builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // set name of new spec
-                TextView textView = dialogView.findViewById(R.id.editTextNewSpec);
-                String newSpec = textView.getText().toString();
-
-                // set variable of new spec
-                RadioGroup radioGroup = dialogView.findViewById(R.id.RadioGroup);
-                int radioButtonID = radioGroup.getCheckedRadioButtonId();
-                RadioButton radioButton = radioGroup.findViewById(radioButtonID);
-                String variable = " (" + radioButton.getText().toString() + ")";
-
-                addExtraSpecToView(newSpec, variable);
+                positiveButtonListener(dialogView);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -91,6 +81,21 @@ public class AddCollectionActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    // set onclick listener for positive button
+    public void positiveButtonListener(View dialogView) {
+        // set name of new spec
+        TextView textView = dialogView.findViewById(R.id.editTextNewSpec);
+        String newSpec = textView.getText().toString();
+
+        // set variable of new spec
+        RadioGroup radioGroup = dialogView.findViewById(R.id.RadioGroup);
+        int radioButtonID = radioGroup.getCheckedRadioButtonId();
+        RadioButton radioButton = radioGroup.findViewById(radioButtonID);
+        String variable = " (" + radioButton.getText().toString() + ")";
+
+        addExtraSpecToView(newSpec, variable);
     }
 
     // put the extra specs in the view
