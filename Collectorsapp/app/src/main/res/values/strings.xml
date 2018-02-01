@@ -21,5 +21,6 @@
     <string name="save">Save</string>
     <string name="text">Text</string>
     <string name="number">Number</string>
+    <string name="logo">Logo</string>
 
 </resources>
