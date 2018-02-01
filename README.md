@@ -9,7 +9,7 @@ There are a lot of different kinds of collectors. They keep their own administra
 ## Solution
 This app will provide an easy way to administrate and share your own collection in an android app.
 
-![alt text1](https://github.com/haantje0/Programmeer-Project/blob/master/doc/app%20sketch%201.jpeg) ![alt text2](https://github.com/haantje0/Programmeer-Project/blob/master/doc/app%20sketch%202.jpeg) ![alt text3](https://github.com/haantje0/Programmeer-Project/blob/master/doc/app%20sketch%203.jpeg) ![alt text4](https://github.com/haantje0/Programmeer-Project/blob/master/doc/app%20sketch%204.jpeg)
+![alt text1](https://github.com/haantje0/Programmeer-Project/blob/master/doc/app%20sketch%201.jpeg =50x) ![alt text2](https://github.com/haantje0/Programmeer-Project/blob/master/doc/app%20sketch%202.jpeg =50x) ![alt text3](https://github.com/haantje0/Programmeer-Project/blob/master/doc/app%20sketch%203.jpeg =50x) ![alt text4](https://github.com/haantje0/Programmeer-Project/blob/master/doc/app%20sketch%204.jpeg =50x)
 
 
 In the screenshots you can see different screens for the app. 
