@@ -36,10 +36,10 @@ External components:
 - Phone Camera API
 
 Code sources:
-- The idea for the Facebook friendlist came from https://github.com/sallySalem/Facebook-Friends-list. This is an open scource.
+- The idea for the Facebook friendlist came from https://github.com/sallySalem/Facebook-Friends-list. This is an open source.
 
 Design sources:
-- The Icons in the app are from https://material.io/icons/. This is an open scource for Android icons.
+- The Icons in the app are from https://material.io/icons/. This is an open source for Android icons.
 
 Similar Android apps:
 - Collections Manager. It lets you create your own collection. You are unable to share your collection and chose your own specifications.
