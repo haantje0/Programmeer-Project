@@ -51,3 +51,8 @@
 
 ## day 3
 - Worked trough all the TODO's that came out of the code review and fixed some bugs.
+- I commented to all the files.
+- I tried to add Facebook Profile pictures to the friends activity, but it did not work out.
+
+## day 4
+- Today I worked on the report and product video
