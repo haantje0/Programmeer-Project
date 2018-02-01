@@ -1,6 +1,9 @@
 # Programmeer Project
 this document contains general information about this app and the problem it solves.
 
+Here is a video that demonstrates the product (in Dutch):
+https://youtu.be/GS1d5yU3j6k
+
 [![BCH compliance](https://bettercodehub.com/edge/badge/haantje0/Programmeer-Project?branch=master)](https://bettercodehub.com/)
 
 ## Problem
